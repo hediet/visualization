@@ -1,0 +1,162 @@
+.theme-dark {
+	--visualizer-tree-childOrThisMarked-background: orange;
+	--visualizer-tree-childOrThisSelected-background: white;
+	--visualizer-tree-pathColor: gray;
+
+	--visualizer-tree-style1-foreground: #5594ea;
+	--visualizer-tree-style2-foreground: #c88544; //#38b968;
+	--visualizer-tree-style3-foreground: darkred;
+	--visualizer-tree-style3-border: black;
+	--visualizer-tree-unstyled-foreground: lightgray;
+	--visualizer-tree-path-foreground: white;
+}
+
+.theme-light {
+	--visualizer-tree-childOrThisMarked-background: orange;
+	--visualizer-tree-childOrThisSelected-background: black;
+	--visualizer-tree-pathColor: gray;
+
+	--visualizer-tree-style1-foreground: blue;
+	--visualizer-tree-style2-foreground: darkgreen;
+	--visualizer-tree-style3-foreground: darkred;
+	--visualizer-tree-style3-border: black;
+	--visualizer-tree-unstyled-foreground: black;
+	--visualizer-tree-path-foreground: black;
+}
+
+.component-TreeView {
+	overflow: auto;
+	scroll-behavior: smooth;
+	height: 100%;
+	position: relative;
+	display: grid;
+
+	& > .part-svg,
+	& > .part-node {
+		height: 100%;
+		width: 100%;
+		grid-column: 1;
+		grid-row: 1;
+	}
+}
+
+.component-TreeNodeSvgView {
+	.path {
+		stroke: var(--visualizer-tree-pathColor);
+		stroke-dasharray: 1;
+
+		&.childOrThisMarked {
+			stroke: var(--visualizer-tree-childOrThisMarked-background);
+			stroke-width: 5;
+			stroke-dasharray: 0;
+			stroke-linecap: round;
+		}
+
+		&.childOrThisSelected {
+			stroke: var(--visualizer-tree-childOrThisSelected-background);
+			stroke-width: 2;
+			stroke-dasharray: 0;
+		}
+	}
+}
+
+.component-TreeNodeView {
+	font-family: -apple-system, BlinkMacSystemFont, Segoe WPC, Segoe UI,
+		HelveticaNeue-Light, Ubuntu, Droid Sans, sans-serif;
+
+	.part-header {
+		padding: 2px;
+		padding-left: 5px;
+		margin: 0;
+		display: flex;
+		align-items: center;
+
+		.part-collapser {
+			width: 10px;
+			height: 10px;
+			margin-right: 6px;
+		}
+
+		.part-text {
+			cursor: pointer;
+			span.style1 {
+				color: var(--visualizer-tree-style1-foreground);
+			}
+			span.style2 {
+				color: var(--visualizer-tree-style2-foreground);
+				text-decoration: underline;
+				padding: 1px 3px;
+				margin-left: 5px;
+			}
+			span.style3 {
+				color: var(--visualizer-tree-style3-foreground);
+				border: var(--visualizer-tree-style3-border) solid 1px;
+				padding: 1px 3px;
+				margin-left: 5px;
+			}
+			span.unstyled {
+				color: var(--visualizer-tree-unstyled-foreground);
+			}
+		}
+	}
+
+	.part-children {
+		margin-left: 0px;
+		margin-top: 0px;
+
+		padding: 5px;
+		padding-left: 15px;
+	}
+
+	&.selected {
+		& > .part-header {
+			font-weight: bold;
+		}
+	}
+	&.hovered {
+		& > .part-header > span {
+			font-weight: bold;
+		}
+		& > .part-children {
+			background: transparentize(gray, 0.8);
+		}
+	}
+}
+
+.component-TreeWithPathView {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	.part-path {
+		overflow: hidden;
+		white-space: pre;
+		padding: 5px 10px;
+		border-bottom: solid gray 1px;
+
+		color: lightgray;
+
+		.part-path-item {
+			color: var(--visualizer-tree-path-foreground);
+			margin-left: 1px;
+			margin-right: 1px;
+		}
+	}
+	.part-tree {
+		overflow: auto;
+		flex: 1;
+	}
+}
+
+.decorator-collapse-icon {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23646465' d='M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z'/%3E%3C/svg%3E");
+
+	background-position: 50%;
+	background-position-x: 50%;
+	background-position-y: center;
+	background-repeat: no-repeat;
+
+	&.expanded {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23646465' d='M11 10.07H5.344L11 4.414v5.656z'/%3E%3C/svg%3E");
+	}
+}

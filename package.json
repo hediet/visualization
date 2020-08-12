@@ -1,0 +1,13 @@
+{
+	"private": true,
+	"workspaces": [
+		"./visualization-core",
+		"./visualization-bundle",
+		"./simple-demo",
+		"./playground"
+	],
+	"scripts": {},
+	"devDependencies": {
+		"prettier": "^1.19.1"
+	}
+}

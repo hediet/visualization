@@ -1,0 +1,14 @@
+.component-Grid {
+	.part-data {
+		border: 1px solid lightgray;
+		background: #eeeeee;
+	}
+
+	.part-header {
+		background: transparentize(white, 0.5);
+	}
+
+	.part-empty {
+		color: var(--vscode-editor-foreground);
+	}
+}

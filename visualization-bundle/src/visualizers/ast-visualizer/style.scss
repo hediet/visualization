@@ -1,0 +1,23 @@
+.theme-dark {
+	--visualizer-ast-marked-background: rgba(234, 92, 0, 0.33);
+	--visualizer-ast-selected-background: #515c6a;
+}
+.theme-light {
+	--visualizer-ast-marked-background: orange;
+	--visualizer-ast-selected-background: yellow;
+}
+
+.component-AstTree {
+	.part-editor {
+		//border-top: solid gray 1px;
+
+		.marked {
+			background: var(--visualizer-ast-marked-background);
+		}
+
+		.selected {
+			background: var(--visualizer-ast-selected-background);
+			opacity: 0.7;
+		}
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"module": "es2020",
+		"moduleResolution": "node",
+		"strict": true,
+		"outDir": "dist",
+		"skipLibCheck": true,
+		"newLine": "LF",
+		"sourceMap": true,
+		"jsx": "react",
+		"experimentalDecorators": true,
+		"declaration": true,
+		"declarationMap": true,
+		"allowSyntheticDefaultImports": true
+	},
+	"include": ["src/**/*"]
+}
