@@ -1,7 +1,6 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { computed, action, observable } from "mobx";
-import { Icon } from "@blueprintjs/core";
 import { sGrid } from ".";
 
 export class DecoratedGridComponent extends React.Component<{
@@ -72,15 +71,7 @@ export class DecoratedGridComponent extends React.Component<{
 				r.columns.push({
 					id: m.id,
 					kind: "empty",
-					content: (
-						<Cell>
-							<Icon
-								icon="arrow-up"
-								color="var(--vscode-editor-foreground)"
-							/>
-							{m.label || m.id}
-						</Cell>
-					),
+					content: <Cell>{m.label || m.id}</Cell>,
 				});
 			}
 		}

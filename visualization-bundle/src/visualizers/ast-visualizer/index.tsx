@@ -67,6 +67,7 @@ export const sAstTreeNode: Serializer<AstTreeNode> = sLazy(() =>
 
 export const sAstTree = sOpenObject({
 	kind: sOpenObject({
+		ast: sLiteral(true),
 		tree: sLiteral(true),
 		text: sLiteral(true),
 	}),

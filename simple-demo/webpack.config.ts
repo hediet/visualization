@@ -64,7 +64,6 @@ module.exports = {
 
 		plugins.push(
 			new MonacoWebpackPlugin({
-				// Add more languages here once webworker issues are solved.
 				languages: ["typescript", "json"],
 			})
 		);

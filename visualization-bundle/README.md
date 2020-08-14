@@ -21,6 +21,31 @@ Don't forget to import the styles in your scss file:
 @import "~@hediet/visualization-bundle/style.scss";
 ```
 
+You will need to configure webpack
+
+-   to compile scss files:
+
+```js
+{ test: /\.scss$/, loader: "style-loader!css-loader!sass-loader" },
+```
+
+-   to compile less files:
+
+```js
+{ test: /\.less$/, loaders: ["style-loader", "css-loader", "less-loader"] }
+```
+
+-   to register monaco workers
+
+```js
+plugins: [
+	// ...
+	new MonacoWebpackPlugin({
+		languages: ["typescript", "json"],
+	}),
+];
+```
+
 See docs of `@hediet/visualization-core` for how to find and render visualizations!
 
 ## Supported Visualizations
@@ -43,3 +68,7 @@ See docs of `@hediet/visualization-core` for how to find and render visualizatio
 -   Graphviz Dot Visualizer
 -   Vis.js Visualizer
 -   Monaco Editor Source Code Visualizer
+
+```
+
+```

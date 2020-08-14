@@ -52,7 +52,7 @@ const visualizations = globalVisualizationFactory.getVisualizations(
 	/* preferred visualization id */ undefined
 );
 // `visualizations.bestVisualization` is the visualization that is best suited to visualize the data.
-// `visualiztaions.allVisualizations` contains all other available visualizations than can visualize the data.
+// `visualiztaions.allVisualizations` contains all suitable visualizations.
 ```
 
 If you use react, you can use the `VisualizationView` component to render a visualization:
