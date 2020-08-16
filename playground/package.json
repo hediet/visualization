@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"license": "MIT",
 	"scripts": {
-		"dev": "webpack-dev-server --hot --port 8080",
+		"dev": "webpack-dev-server --hot",
 		"build": "webpack",
 		"pub": "gh-pages -d dist"
 	},
