@@ -1,11 +1,12 @@
 import React from "react";
-import { sOpenObject, sLiteral, sString } from "@hediet/semantic-json";
+import { sOpenObject, sLiteral, sString, sProp } from "@hediet/semantic-json";
 import { SvgViewer } from "./SvgViewer";
 import {
 	createVisualizer,
 	ReactVisualization,
 	globalVisualizationFactory,
 } from "@hediet/visualization-core";
+import { visualizationNs } from "../../consts";
 
 export const svgVisualizer = createVisualizer({
 	id: "svg",
@@ -14,8 +15,8 @@ export const svgVisualizer = createVisualizer({
 		kind: sOpenObject({
 			svg: sLiteral(true),
 		}),
-		text: sString(),
-	}),
+		text: sProp( sString(), { description: "The svg content" }),
+	}).defineAs(visualizationNs("SvgData")),
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 1500 }, () => (
 			<SvgViewer svgContent={data.text} />

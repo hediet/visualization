@@ -15,6 +15,7 @@ import {
 	Serializer,
 	sOptionalProp,
 	sUnion,
+	sProp,
 } from "@hediet/semantic-json";
 import {
 	createVisualizer,
@@ -37,10 +38,10 @@ export interface Item {
 
 const sTreeNode: Serializer<TreeNode> = sLazy(() =>
 	sOpenObject({
-		children: sArrayOf(sTreeNode),
-		items: sArrayOf(
+		children: sProp(sArrayOf(sTreeNode), { description: "The children of this tree-node" }),
+		items: sProp(sArrayOf(
 			sOpenObject({
-				text: sString(),
+				text: sProp(sString(), { description: "The text to show" }),
 				emphasis: sOptionalProp(
 					sUnion(
 						[
@@ -50,12 +51,14 @@ const sTreeNode: Serializer<TreeNode> = sLazy(() =>
 							sString(),
 						],
 						{ inclusive: true }
-					)
+					), {
+					description: "The style of the text"
+				}
 				),
 			}).defineAs(visualizationNs("TreeNodeItem"))
-		),
-		segment: sOptionalProp(sString()),
-		isMarked: sOptionalProp(sBoolean()),
+		), { description: "The parts that make up the text of this item" }),
+		segment: sOptionalProp(sString(), { description: "If a node is selected, the concatenation of all segment values from root to the selected node is shown to the user." }),
+		isMarked: sOptionalProp(sBoolean(), { description: "Marked nodes are highlighted and scrolled into view on every visualization update." }),
 	}).defineAs(visualizationNs("TreeNode"))
 );
 
@@ -64,7 +67,7 @@ const sTree = sOpenObject({
 		tree: sLiteral(true),
 	}),
 	root: sTreeNode,
-});
+}).defineAs(visualizationNs("TreeData"));
 
 export const treeVisualizer = createVisualizer({
 	id: "tree",

@@ -1,4 +1,4 @@
-import { sOpenObject, sLiteral, sString } from "@hediet/semantic-json";
+import { sOpenObject, sLiteral, sString, sProp } from "@hediet/semantic-json";
 import React from "react";
 import {
 	createVisualizer,
@@ -16,7 +16,7 @@ export const imageVisualizer = createVisualizer({
 		kind: sOpenObject({
 			imagePng: sLiteral(true),
 		}),
-		base64Data: sString(),
+		base64Data: sProp( sString(), { description: "The base 64 encoded PNG representation of the image" }),
 	}),
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 1000 }, () => {

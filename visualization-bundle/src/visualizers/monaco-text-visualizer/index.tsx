@@ -3,6 +3,7 @@ import {
 	sLiteral,
 	sString,
 	sOptionalProp,
+	sProp,
 } from "@hediet/semantic-json";
 import React from "react";
 import { getLanguageId, MonacoEditor } from "./MonacoEditor";
@@ -19,7 +20,7 @@ export const monacoTextVisualizer = createVisualizer({
 		kind: sOpenObject({
 			text: sLiteral(true),
 		}),
-		text: sString(),
+		text: sProp( sString(), { description: "The text to show" }),
 		fileName: sOptionalProp(sString(), {
 			description:
 				"An optional filename that might be used for chosing a syntax highlighter",

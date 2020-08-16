@@ -25,11 +25,11 @@ export const plotlyVisualizer = createVisualizer({
 		kind: sOpenObject({
 			plotly: sLiteral(true),
 		}),
-		data: sProp(sArrayOf(sAny()), {
+		data: sProp(sArrayOf(sOpenObject()), {
 			description:
 				"Expecting Plotly.Data[] (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/795ce172038dbafcb9cba030d637d733a7eea19c/types/plotly.js/index.d.ts#L1036)",
 		}),
-		layout: sOptionalProp(sAny(), {
+		layout: sOptionalProp(sOpenObject(), {
 			description:
 				"Expecting Partial<Plotly.Layout> (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/795ce172038dbafcb9cba030d637d733a7eea19c/types/plotly.js/index.d.ts#L329)",
 		}),
