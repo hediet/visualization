@@ -1,3 +1,10 @@
+.theme-dark {
+	--visualizer-grid-empty-foreground: #f0f0f0;
+}
+.theme-light {
+	--visualizer-grid-empty-foreground: #000000;
+}
+
 .component-Grid {
 	.part-data {
 		border: 1px solid lightgray;
@@ -9,6 +16,6 @@
 	}
 
 	.part-empty {
-		color: var(--vscode-editor-foreground);
+		color: var(--visualizer-grid-empty-foreground);
 	}
 }
