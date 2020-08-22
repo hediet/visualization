@@ -5,13 +5,14 @@ import {
 	sOptionalProp,
 	sProp,
 } from "@hediet/semantic-json";
-import React from "react";
+import * as React from "react";
 import { getLanguageId, MonacoEditor } from "./MonacoEditor";
 import {
 	createVisualizer,
 	ReactVisualization,
 	globalVisualizationFactory,
 } from "@hediet/visualization-core";
+import { visualizationNs } from "../../consts";
 
 export const monacoTextVisualizer = createVisualizer({
 	id: "monaco-text",
@@ -20,12 +21,12 @@ export const monacoTextVisualizer = createVisualizer({
 		kind: sOpenObject({
 			text: sLiteral(true),
 		}),
-		text: sProp( sString(), { description: "The text to show" }),
+		text: sProp(sString(), { description: "The text to show" }),
 		fileName: sOptionalProp(sString(), {
 			description:
 				"An optional filename that might be used for chosing a syntax highlighter",
 		}),
-	}),
+	}).defineAs(visualizationNs("MonacoTextVisualizationData")),
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 500 }, theme => {
 			let id = "text";

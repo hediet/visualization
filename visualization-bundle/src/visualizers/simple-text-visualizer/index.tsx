@@ -1,10 +1,11 @@
 import { sOpenObject, sLiteral, sString } from "@hediet/semantic-json";
-import React from "react";
+import * as React from "react";
 import {
 	createVisualizer,
 	ReactVisualization,
 	globalVisualizationFactory,
 } from "@hediet/visualization-core";
+import { visualizationNs } from "../../consts";
 
 export const simpleTextVisualizer = createVisualizer({
 	id: "simple-text",
@@ -14,7 +15,7 @@ export const simpleTextVisualizer = createVisualizer({
 			text: sLiteral(true),
 		}),
 		text: sString(),
-	}),
+	}).defineAs(visualizationNs("SimpleTextVisualizationData")),
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 100 }, () => (
 			<pre

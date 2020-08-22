@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
 	sOpenObject,
 	sLiteral,
@@ -14,15 +14,18 @@ import {
 	ReactVisualization,
 	globalVisualizationFactory,
 } from "@hediet/visualization-core";
+import { visualizationNs } from "../../consts";
 
 export const sGrid = sOpenObject({
 	kind: sOpenObject({
-		array: sLiteral(true),
+		grid: sLiteral(true),
 	}),
-	columnLabels: sArrayOf(
-		sOpenObject({
-			label: sOptionalProp(sString(), {}),
-		})
+	columnLabels: sOptionalProp(
+		sArrayOf(
+			sOpenObject({
+				label: sOptionalProp(sString(), {}),
+			})
+		)
 	),
 	rows: sArrayOf(
 		sOpenObject({
@@ -55,7 +58,7 @@ export const sGrid = sOpenObject({
 		),
 		{}
 	),
-});
+}).defineAs(visualizationNs("GridVisualizationData"));
 
 export const gridVisualizer = createVisualizer({
 	id: "grid",

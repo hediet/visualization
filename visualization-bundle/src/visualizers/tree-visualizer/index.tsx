@@ -38,27 +38,39 @@ export interface Item {
 
 const sTreeNode: Serializer<TreeNode> = sLazy(() =>
 	sOpenObject({
-		children: sProp(sArrayOf(sTreeNode), { description: "The children of this tree-node" }),
-		items: sProp(sArrayOf(
-			sOpenObject({
-				text: sProp(sString(), { description: "The text to show" }),
-				emphasis: sOptionalProp(
-					sUnion(
-						[
-							sLiteral("style1"),
-							sLiteral("style2"),
-							sLiteral("style3"),
-							sString(),
-						],
-						{ inclusive: true }
-					), {
-					description: "The style of the text"
-				}
-				),
-			}).defineAs(visualizationNs("TreeNodeItem"))
-		), { description: "The parts that make up the text of this item" }),
-		segment: sOptionalProp(sString(), { description: "If a node is selected, the concatenation of all segment values from root to the selected node is shown to the user." }),
-		isMarked: sOptionalProp(sBoolean(), { description: "Marked nodes are highlighted and scrolled into view on every visualization update." }),
+		children: sProp(sArrayOf(sTreeNode), {
+			description: "The children of this tree-node",
+		}),
+		items: sProp(
+			sArrayOf(
+				sOpenObject({
+					text: sProp(sString(), { description: "The text to show" }),
+					emphasis: sOptionalProp(
+						sUnion(
+							[
+								sLiteral("style1"),
+								sLiteral("style2"),
+								sLiteral("style3"),
+								sString(),
+							],
+							{ inclusive: true }
+						),
+						{
+							description: "The style of the text",
+						}
+					),
+				}).defineAs(visualizationNs("TreeNodeItem"))
+			),
+			{ description: "The parts that make up the text of this item" }
+		),
+		segment: sOptionalProp(sString(), {
+			description:
+				"If a node is selected, the concatenation of all segment values from root to the selected node is shown to the user.",
+		}),
+		isMarked: sOptionalProp(sBoolean(), {
+			description:
+				"Marked nodes are highlighted and scrolled into view on every visualization update.",
+		}),
 	}).defineAs(visualizationNs("TreeNode"))
 );
 
@@ -67,7 +79,7 @@ const sTree = sOpenObject({
 		tree: sLiteral(true),
 	}),
 	root: sTreeNode,
-}).defineAs(visualizationNs("TreeData"));
+}).defineAs(visualizationNs("TreeVisualizationData"));
 
 export const treeVisualizer = createVisualizer({
 	id: "tree",

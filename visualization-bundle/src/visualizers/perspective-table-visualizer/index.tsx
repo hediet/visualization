@@ -1,25 +1,27 @@
-import React from "react";
-import { sOpenObject, sLiteral, sArrayOf, sAny } from "@hediet/semantic-json";
+import * as React from "react";
+import { sOpenObject, sLiteral, sArrayOf, sProp } from "@hediet/semantic-json";
 import { toJS } from "mobx";
-import "@finos/perspective-viewer";
-import "@finos/perspective-viewer-datagrid";
-import "@finos/perspective-viewer-d3fc";
-import "@finos/perspective-viewer/themes/all-themes.css";
-import { HTMLPerspectiveViewerElement } from "@finos/perspective-viewer";
 import {
 	createVisualizer,
 	ReactVisualization,
 	globalVisualizationFactory,
 } from "@hediet/visualization-core";
+import { makeLazyLoadable } from "../../utils/LazyLoadable";
+import { visualizationNs } from "../../consts";
 
 export const sTable = sOpenObject({
 	kind: sOpenObject({
 		table: sLiteral(true),
 	}),
-	rows: sArrayOf(
-		sAny() // object
-	),
-});
+	rows: sProp(sArrayOf(sOpenObject({})), {
+		description:
+			"An array of objects. The properties of the objects are used as columns.",
+	}),
+}).defineAs(visualizationNs("TableVisualizationData"));
+
+const PerspectiveDataViewerLazyLoadable = makeLazyLoadable(
+	async () => (await import("./PerspectiveDataViewer")).PerspectiveDataViewer
+);
 
 export const perspectiveTableVisualizer = createVisualizer({
 	id: "perspective-table",
@@ -27,7 +29,7 @@ export const perspectiveTableVisualizer = createVisualizer({
 	serializer: sTable,
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 1000 }, theme => (
-			<PerspectiveDataViewer
+			<PerspectiveDataViewerLazyLoadable
 				className={
 					{
 						light: "perspective-viewer-material",
@@ -42,35 +44,5 @@ export const perspectiveTableVisualizer = createVisualizer({
 			/>
 		)),
 });
-
-class PerspectiveDataViewer extends React.Component<
-	{ data: object[] } & React.HTMLAttributes<HTMLDivElement>
-> {
-	private readonly nodeRef = React.createRef<HTMLPerspectiveViewerElement>();
-
-	componentDidUpdate() {
-		this.nodeRef.current!.load(this.props.data);
-	}
-
-	componentDidMount() {
-		setTimeout(() => {
-			// TODO: Why timeout?
-			// It does not work without it.
-
-			this.nodeRef.current!.load(this.props.data);
-			this.nodeRef.current!.toggleConfig();
-		});
-	}
-
-	render() {
-		return (
-			<perspective-viewer
-				class={this.props.className}
-				style={this.props.style}
-				ref={this.nodeRef}
-			/>
-		);
-	}
-}
 
 globalVisualizationFactory.addVisualizer(perspectiveTableVisualizer);

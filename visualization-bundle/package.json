@@ -21,7 +21,7 @@
 	"types": "./dist/index.d.ts",
 	"dependencies": {
 		"@hediet/std": "^0.6.0",
-		"@hediet/semantic-json": "^0.3.11",
+		"@hediet/semantic-json": "^0.3.14",
 		"classnames": "^2.2.6",
 		"mobx": "^5.15.4",
 		"mobx-react": "^6.1.8",
@@ -39,7 +39,7 @@
 		"@finos/perspective-viewer": "^0.5.2",
 		"@finos/perspective-viewer-d3fc": "^0.5.2",
 		"@finos/perspective-viewer-datagrid": "^0.5.2",
-		"@hediet/monaco-editor-react": "^0.1.0"
+		"@hediet/monaco-editor-react": "^0.1.1"
 	},
 	"peerDependencies": {
 		"@hediet/visualization-core": "^0.1.0"

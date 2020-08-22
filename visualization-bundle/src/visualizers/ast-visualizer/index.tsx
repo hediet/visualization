@@ -19,7 +19,7 @@ import {
 } from "@hediet/visualization-core";
 import { createTreeViewModelFromTreeNodeData } from "../tree-visualizer";
 import { AstTree, NodeInfo } from "./AstVisualizer";
-import React from "react";
+import * as React from "react";
 import LineColumn from "line-column";
 import * as monacoTypes from "monaco-editor";
 import { getLoadedMonaco } from "@hediet/monaco-editor-react";
@@ -54,7 +54,7 @@ export const sAstTreeNode: Serializer<AstTreeNode> = sLazy(() =>
 						{ inclusive: true }
 					)
 				),
-			}).defineAs(visualizationNs("TreeNodeItem"))
+			}).defineAs(visualizationNs("AstTreeNodeItem"))
 		),
 		segment: sOptionalProp(sString()),
 		isMarked: sOptionalProp(sBoolean()),
@@ -62,7 +62,7 @@ export const sAstTreeNode: Serializer<AstTreeNode> = sLazy(() =>
 			start: sNumber(),
 			length: sNumber(),
 		}),
-	}).defineAs(visualizationNs("TreeNode"))
+	}).defineAs(visualizationNs("AstTreeNode"))
 );
 
 export const sAstTree = sOpenObject({
@@ -74,7 +74,7 @@ export const sAstTree = sOpenObject({
 	root: sAstTreeNode,
 	text: sString(),
 	fileName: sOptionalProp(sString()),
-});
+}).defineAs(visualizationNs("AstTreeVisualizationData"));
 
 export const astVisualizer = createVisualizer({
 	id: "ast",

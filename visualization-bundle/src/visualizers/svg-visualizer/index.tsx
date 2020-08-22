@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { sOpenObject, sLiteral, sString, sProp } from "@hediet/semantic-json";
 import { SvgViewer } from "./SvgViewer";
 import {
@@ -15,8 +15,8 @@ export const svgVisualizer = createVisualizer({
 		kind: sOpenObject({
 			svg: sLiteral(true),
 		}),
-		text: sProp( sString(), { description: "The svg content" }),
-	}).defineAs(visualizationNs("SvgData")),
+		text: sProp(sString(), { description: "The svg content" }),
+	}).defineAs(visualizationNs("SvgVisualizationData")),
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 1500 }, () => (
 			<SvgViewer svgContent={data.text} />

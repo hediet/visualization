@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { GraphvizGraphViewer } from "./GraphvizGraphVisualizer";
 import { sGraph } from "../sGraph";
 import {

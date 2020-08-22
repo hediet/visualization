@@ -32,4 +32,4 @@ export const sGraph = sOpenObject({
 	kind: sOpenObject({ graph: sLiteral(true) }),
 	nodes: sArrayOf(sGraphNode),
 	edges: sArrayOf(sGraphEdge),
-}).defineAs(visualizationNs("Graph"));
+}).defineAs(visualizationNs("GraphVisualizationData"));

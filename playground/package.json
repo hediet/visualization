@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@blueprintjs/core": "^3.23.1",
 		"@hediet/std": "^0.6.0",
-		"@hediet/semantic-json": "^0.3.11",
+		"@hediet/semantic-json": "^0.3.14",
 		"blueprintjs": "^0.0.8",
 		"classnames": "^2.2.6",
 		"mobx": "^5.15.4",
@@ -21,7 +21,7 @@
 		"messagepack": "^1.1.10",
 		"base64-js": "^1.3.1",
 		"lzma": "^2.3.2",
-		"@hediet/monaco-editor-react": "^0.1.0"
+		"@hediet/monaco-editor-react": "^0.1.1"
 	},
 	"devDependencies": {
 		"gh-pages": "^2.2.0",

@@ -1,5 +1,5 @@
 import { sOpenObject, sLiteral, sString, sProp } from "@hediet/semantic-json";
-import React from "react";
+import * as React from "react";
 import {
 	createVisualizer,
 	ReactVisualization,
@@ -8,6 +8,7 @@ import {
 import { SvgViewer } from "../svg-visualizer/SvgViewer";
 import { Observer, observer, disposeOnUnmount } from "mobx-react";
 import { observable, autorun } from "mobx";
+import { visualizationNs } from "../../consts";
 
 export const imageVisualizer = createVisualizer({
 	id: "image",
@@ -16,8 +17,10 @@ export const imageVisualizer = createVisualizer({
 		kind: sOpenObject({
 			imagePng: sLiteral(true),
 		}),
-		base64Data: sProp( sString(), { description: "The base 64 encoded PNG representation of the image" }),
-	}),
+		base64Data: sProp(sString(), {
+			description: "The base 64 encoded PNG representation of the image",
+		}),
+	}).defineAs(visualizationNs("ImageVisualizationData")),
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 1000 }, () => {
 			return <ImageViewer base64Data={data.base64Data} />;

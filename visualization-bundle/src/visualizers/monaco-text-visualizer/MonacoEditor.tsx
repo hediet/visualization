@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { observer, disposeOnUnmount } from "mobx-react";
 import { observable, autorun } from "mobx";
 import * as monacoTypes from "monaco-editor";

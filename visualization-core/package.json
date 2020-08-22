@@ -28,7 +28,7 @@
 	"types": "./dist/index.d.ts",
 	"dependencies": {
 		"@hediet/std": "^0.6.0",
-		"@hediet/semantic-json": "^0.3.11",
+		"@hediet/semantic-json": "^0.3.14",
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
 		"react-measure": "^2.3.0"

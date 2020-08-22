@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { sOpenObject, sLiteral, sString } from "@hediet/semantic-json";
 import { GraphvizDotViewer } from "./GraphvizDotVisualizer";
 import {
@@ -6,6 +6,7 @@ import {
 	globalVisualizationFactory,
 	createVisualizer,
 } from "@hediet/visualization-core";
+import { visualizationNs } from "../../../consts";
 
 export const graphvizDotVisualizer = createVisualizer({
 	id: "graphviz-dot",
@@ -15,7 +16,7 @@ export const graphvizDotVisualizer = createVisualizer({
 			dotGraph: sLiteral(true),
 		}),
 		text: sString(),
-	}),
+	}).defineAs(visualizationNs("GraphvizDotVisualizationData")),
 	getVisualization: (data, self) =>
 		new ReactVisualization(self, { priority: 1500 }, () => (
 			<GraphvizDotViewer dotCode={data.text} />
