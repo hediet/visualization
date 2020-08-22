@@ -16,6 +16,8 @@
 
 // This bundles the monaco editor. Uncomment it to load monaco dynamically.
 // Dynamic loading increases webpack build speed significantly.
-import "monaco-editor";
+if (typeof process === undefined) {
+	require("monaco-editor");
+}
 
 import "@hediet/visualization-bundle"; // */
