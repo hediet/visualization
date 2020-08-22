@@ -1,0 +1,1013 @@
+{
+    "definitions": {
+        "TreeVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "tree": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "tree"
+                    ]
+                },
+                "root": {
+                    "$ref": "#/definitions/TreeNode"
+                }
+            },
+            "required": [
+                "kind",
+                "root"
+            ]
+        },
+        "TreeNode": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TreeNode"
+                    },
+                    "description": "The children of this tree-node"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TreeNodeItem"
+                    },
+                    "description": "The parts that make up the text of this item"
+                },
+                "segment": {
+                    "type": "string",
+                    "description": "If a node is selected, the concatenation of all segment values from root to the selected node is shown to the user."
+                },
+                "isMarked": {
+                    "type": "boolean",
+                    "description": "Marked nodes are highlighted and scrolled into view on every visualization update."
+                }
+            },
+            "required": [
+                "children",
+                "items"
+            ]
+        },
+        "TreeNodeItem": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string",
+                    "description": "The text to show"
+                },
+                "emphasis": {
+                    "anyOf": [
+                        {
+                            "enum": [
+                                "style1"
+                            ]
+                        },
+                        {
+                            "enum": [
+                                "style2"
+                            ]
+                        },
+                        {
+                            "enum": [
+                                "style3"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "The style of the text"
+                }
+            },
+            "required": [
+                "text"
+            ]
+        },
+        "AstTreeVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "ast": {
+                            "enum": [
+                                true
+                            ]
+                        },
+                        "tree": {
+                            "enum": [
+                                true
+                            ]
+                        },
+                        "text": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "ast",
+                        "tree",
+                        "text"
+                    ]
+                },
+                "root": {
+                    "$ref": "#/definitions/AstTreeNode"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "fileName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "kind",
+                "root",
+                "text"
+            ]
+        },
+        "AstTreeNode": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AstTreeNode"
+                    }
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AstTreeNodeItem"
+                    }
+                },
+                "segment": {
+                    "type": "string"
+                },
+                "isMarked": {
+                    "type": "boolean"
+                },
+                "span": {
+                    "type": "object",
+                    "properties": {
+                        "start": {
+                            "type": "number"
+                        },
+                        "length": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "start",
+                        "length"
+                    ]
+                }
+            },
+            "required": [
+                "children",
+                "items",
+                "span"
+            ]
+        },
+        "AstTreeNodeItem": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "emphasis": {
+                    "anyOf": [
+                        {
+                            "enum": [
+                                "style1"
+                            ]
+                        },
+                        {
+                            "enum": [
+                                "style2"
+                            ]
+                        },
+                        {
+                            "enum": [
+                                "style3"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "text"
+            ]
+        },
+        "GraphvizDotVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "dotGraph": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "dotGraph"
+                    ]
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "kind",
+                "text"
+            ]
+        },
+        "GraphVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "graph": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "graph"
+                    ]
+                },
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/GraphNode"
+                    }
+                },
+                "edges": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/GraphEdge"
+                    }
+                }
+            },
+            "required": [
+                "kind",
+                "nodes",
+                "edges"
+            ]
+        },
+        "GraphNode": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "string"
+                },
+                "shape": {
+                    "oneOf": [
+                        {
+                            "enum": [
+                                "ellipse"
+                            ]
+                        },
+                        {
+                            "enum": [
+                                "box"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ]
+        },
+        "GraphEdge": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "string"
+                },
+                "dashes": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "from",
+                "to"
+            ]
+        },
+        "GridVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "grid": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "grid"
+                    ]
+                },
+                "columnLabels": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "label": {
+                                "type": "string"
+                            }
+                        },
+                        "required": []
+                    }
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "label": {
+                                "type": "string"
+                            },
+                            "columns": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "tag": {
+                                            "type": "string",
+                                            "description": "A value to identify this cell. Should be unique."
+                                        },
+                                        "color": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": []
+                                }
+                            }
+                        },
+                        "required": [
+                            "columns"
+                        ]
+                    }
+                },
+                "markers": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "row": {
+                                "type": "number"
+                            },
+                            "column": {
+                                "type": "number"
+                            },
+                            "rows": {
+                                "type": "number"
+                            },
+                            "columns": {
+                                "type": "number"
+                            },
+                            "label": {
+                                "type": "string"
+                            },
+                            "color": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "row",
+                            "column"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "kind",
+                "rows"
+            ]
+        },
+        "ImageVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "imagePng": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "imagePng"
+                    ]
+                },
+                "base64Data": {
+                    "type": "string",
+                    "description": "The base 64 encoded PNG representation of the image"
+                }
+            },
+            "required": [
+                "kind",
+                "base64Data"
+            ]
+        },
+        "MonacoTextVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "text"
+                    ]
+                },
+                "text": {
+                    "type": "string",
+                    "description": "The text to show"
+                },
+                "fileName": {
+                    "type": "string",
+                    "description": "An optional filename that might be used for chosing a syntax highlighter"
+                }
+            },
+            "required": [
+                "kind",
+                "text"
+            ]
+        },
+        "TableVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "table": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "table"
+                    ]
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {},
+                        "required": []
+                    },
+                    "description": "An array of objects. The properties of the objects are used as columns."
+                }
+            },
+            "required": [
+                "kind",
+                "rows"
+            ]
+        },
+        "PlotlyVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "plotly": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "plotly"
+                    ]
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "oneOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                ]
+                            },
+                            "xaxis": {
+                                "type": "string"
+                            },
+                            "yaxis": {
+                                "type": "string"
+                            },
+                            "x": {
+                                "oneOf": [
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "oneOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "number"
+                                                },
+                                                {
+                                                    "enum": [
+                                                        null
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "oneOf": [
+                                                    {
+                                                        "type": "string"
+                                                    },
+                                                    {
+                                                        "type": "number"
+                                                    },
+                                                    {
+                                                        "enum": [
+                                                            null
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "y": {
+                                "oneOf": [
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "oneOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "number"
+                                                },
+                                                {
+                                                    "enum": [
+                                                        null
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "oneOf": [
+                                                    {
+                                                        "type": "string"
+                                                    },
+                                                    {
+                                                        "type": "number"
+                                                    },
+                                                    {
+                                                        "enum": [
+                                                            null
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "z": {
+                                "oneOf": [
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "oneOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "number"
+                                                },
+                                                {
+                                                    "enum": [
+                                                        null
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "oneOf": [
+                                                    {
+                                                        "type": "string"
+                                                    },
+                                                    {
+                                                        "type": "number"
+                                                    },
+                                                    {
+                                                        "enum": [
+                                                            null
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "type": {
+                                "oneOf": [
+                                    {
+                                        "enum": [
+                                            "bar"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "box"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "candlestick"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "choropleth"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "contour"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "heatmap"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "histogram"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "indicator"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "mesh3d"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "ohlc"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "parcoords"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "pie"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "pointcloud"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "scatter"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "scatter3d"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "scattergeo"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "scattergl"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "scatterpolar"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "scatterternary"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "sunburst"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "surface"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "treemap"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "waterfall"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "funnel"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "funnelarea"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "scattermapbox"
+                                        ]
+                                    }
+                                ]
+                            },
+                            "mode": {
+                                "oneOf": [
+                                    {
+                                        "enum": [
+                                            "lines"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "markers"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "text"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "lines+markers"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "text+markers"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "text+lines"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "text+lines+markers"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "none"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "gauge"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "number"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "delta"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "number+delta"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "gauge+number"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "gauge+number+delta"
+                                        ]
+                                    },
+                                    {
+                                        "enum": [
+                                            "gauge+delta"
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        "required": []
+                    },
+                    "description": "Expecting Plotly.Data[] (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/795ce172038dbafcb9cba030d637d733a7eea19c/types/plotly.js/index.d.ts#L1036)"
+                },
+                "layout": {
+                    "type": "object",
+                    "properties": {
+                        "title": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [],
+                    "description": "Expecting Partial<Plotly.Layout> (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/795ce172038dbafcb9cba030d637d733a7eea19c/types/plotly.js/index.d.ts#L329)"
+                }
+            },
+            "required": [
+                "kind",
+                "data"
+            ]
+        },
+        "SimpleTextVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "text"
+                    ]
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "kind",
+                "text"
+            ]
+        },
+        "SvgVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "svg": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "svg"
+                    ]
+                },
+                "text": {
+                    "type": "string",
+                    "description": "The svg content"
+                }
+            },
+            "required": [
+                "kind",
+                "text"
+            ]
+        }
+    },
+    "anyOf": [
+        {
+            "$ref": "#/definitions/TreeVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/AstTreeVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/GraphvizDotVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/GraphVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/GraphVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/GridVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/ImageVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/MonacoTextVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/TableVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/PlotlyVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/SimpleTextVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/SvgVisualizationData"
+        }
+    ]
+}
