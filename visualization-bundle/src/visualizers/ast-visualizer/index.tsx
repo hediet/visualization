@@ -20,7 +20,7 @@ import {
 import { createTreeViewModelFromTreeNodeData } from "../tree-visualizer";
 import { AstTree, NodeInfo } from "./AstVisualizer";
 import * as React from "react";
-import LineColumn from "line-column";
+import LineColumn = require("line-column");
 import * as monacoTypes from "monaco-editor";
 import { getLoadedMonaco } from "@hediet/monaco-editor-react";
 
