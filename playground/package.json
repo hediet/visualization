@@ -4,7 +4,8 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "webpack-dev-server --hot",
-		"build": "node --max_old_space_size=4096 ../node_modules/webpack/bin/webpack.js --mode production",
+		"build": "yarn build-webpack && yarn build-docs",
+		"build-webpack": "node --max_old_space_size=4096 ../node_modules/webpack/bin/webpack.js --mode production",
 		"build-docs": "ts-node ./scripts/build-docs",
 		"pub": "gh-pages -d dist"
 	},
