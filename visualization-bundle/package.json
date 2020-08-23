@@ -1,7 +1,7 @@
 {
 	"name": "@hediet/visualization-bundle",
 	"description": "Bundles several visualizers",
-	"version": "0.1.4",
+	"version": "0.1.6",
 	"license": "MIT",
 	"scripts": {
 		"dev": "tsc --watch",
@@ -42,7 +42,7 @@
 		"@hediet/monaco-editor-react": "^0.1.1"
 	},
 	"peerDependencies": {
-		"@hediet/visualization-core": "^0.1.0"
+		"@hediet/visualization-core": "^0.1.1"
 	},
 	"devDependencies": {
 		"@types/plotly.js": "^1.50.16",
