@@ -113,8 +113,10 @@ export function createTreeViewModelFromTreeNodeData<TData, TNodeData>(
 			recurse(c, viewModel)
 		);
 
-		let segment = node.segment;
-		if (!segment && node.items.length > 0) {
+		let segment;
+		if (node.segment) {
+			segment = node.segment;
+		} else if (node.items.length > 0) {
 			segment = node.items[0].text;
 		} else {
 			segment = "";

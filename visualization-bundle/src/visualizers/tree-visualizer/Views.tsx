@@ -226,33 +226,14 @@ export class TreeWithPathView extends React.Component<{
 							<span>
 								{model.selected.path.reduce((acc, v) => {
 									acc = acc.slice();
-									function add() {
-										acc.push(
-											<span
-												className="part-path-item"
-												key={acc.length}
-											>
-												{v}
-											</span>
-										);
-									}
-									if (isValidFunctionName(v)) {
-										if (acc.length > 0) {
-											acc.push(
-												<span key={acc.length}>.</span>
-											);
-										}
-										add();
-									} else {
-										acc.push(
-											<span key={acc.length}>[</span>
-										);
-										add();
-										acc.push(
-											<span key={acc.length}>]</span>
-										);
-									}
-
+									acc.push(
+										<span
+											className="part-path-item"
+											key={acc.length}
+										>
+											{v}
+										</span>
+									);
 									return acc;
 								}, new Array<React.ReactElement>())}
 							</span>
