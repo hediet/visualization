@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "webpack-dev-server --hot --port 8090",
-		"build": "webpack"
+		"build": "node --max_old_space_size=4096 ../node_modules/webpack/bin/webpack.js --mode production"
 	},
 	"dependencies": {
 		"@hediet/visualization-core": "^0.1.0",
