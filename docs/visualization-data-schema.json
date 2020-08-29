@@ -486,6 +486,41 @@
                 "text"
             ]
         },
+        "MonacoTextDiffVisualizationData": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "text"
+                    ]
+                },
+                "text": {
+                    "type": "string",
+                    "description": "The text to show"
+                },
+                "otherText": {
+                    "type": "string",
+                    "description": "The text to compare against"
+                },
+                "fileName": {
+                    "type": "string",
+                    "description": "An optional filename that might be used for chosing a syntax highlighter"
+                }
+            },
+            "required": [
+                "kind",
+                "text",
+                "otherText"
+            ]
+        },
         "TableVisualizationData": {
             "type": "object",
             "properties": {
@@ -996,6 +1031,9 @@
         },
         {
             "$ref": "#/definitions/MonacoTextVisualizationData"
+        },
+        {
+            "$ref": "#/definitions/MonacoTextDiffVisualizationData"
         },
         {
             "$ref": "#/definitions/TableVisualizationData"
