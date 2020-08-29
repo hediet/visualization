@@ -47,6 +47,11 @@
 			"preferredVisualizationId": "monaco-text"
 		},
 		{
+			"dataSrc": "{\r\n    \"kind\": { \"text\": true },\r\n    \"text\": \"class Test {\\n}\",\r\n    \"otherText\": \"class test {\\n}\",\r\n    \"fileName\": \"foo.ts\"\r\n}",
+			"name": "Monaco Text Diff Visualizer",
+			"preferredVisualizationId": "monaco-text"
+		},
+		{
 			"dataSrc": "{\r\n    \"kind\": { \"text\": true },\r\n    \"text\": \"class Test {\\n}\",\r\n    \"fileName\": \"foo.ts\"\r\n}",
 			"name": "Simple Text Visualizer",
 			"preferredVisualizationId": "simple-text"
