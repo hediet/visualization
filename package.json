@@ -6,7 +6,13 @@
 		"./simple-demo",
 		"./playground"
 	],
-	"scripts": {},
+	"scripts": {
+		"build": "yarn build-core && yarn build-bundle && yarn build-playground && yarn build-simple-demo",
+		"build-core": "yarn workspace @hediet/visualization-core run build",
+		"build-bundle": "yarn workspace @hediet/visualization-bundle run build",
+		"build-playground": "yarn workspace playground run build",
+		"build-simple-demo": "yarn workspace simple-demo run build"
+	},
 	"devDependencies": {
 		"prettier": "^1.19.1"
 	}
