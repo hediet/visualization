@@ -34,7 +34,7 @@ export const monacoTextDiffVisualizer = createVisualizer({
 		}),
 	}).defineAs(visualizationNs("MonacoTextDiffVisualizationData")),
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 500 }, theme => {
+		new ReactVisualization(self, { priority: 900 }, theme => {
 			let id = "text";
 			if (data.fileName) {
 				id = getLanguageId(data.fileName);
