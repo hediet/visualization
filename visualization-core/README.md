@@ -57,3 +57,7 @@ function App() {
 	);
 }
 ```
+
+## Architecture
+
+![](./architecture.drawio.svg)
