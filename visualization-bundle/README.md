@@ -82,7 +82,12 @@ You can find a playground that demonstrates all visualizations [here](https://he
 -   Clone this repository.
 -   Run `yarn` in the root folder.
 -   Run `yarn dev` in the `visualization-bundle` folder to start tsc in watch mode.
--   Edit [./playground/src/visualization.ts](../playground/src/visualizations.ts) to your needs to improve webpack performance.
+-   Edit [./playground/src/visualization.ts](../playground/src/visualizations.ts) to your needs to improve webpack performance. This is highly recommended.
 -   Run `yarn dev` in the `playground` folder to start the playground where you can debug your visualization.
 
-Please use the [`simple-text-visualizer`](./src/visualizers/simple-text-visualizer/index.tsx) as starting point!
+## Implementing New Visualizations
+
+First, setup your local development copy.
+
+You can use the [`simple-text-visualizer`](./src/visualizers/simple-text-visualizer/index.tsx) as starting point!
+Just copy the folder, rename the ids and names, export it [here](./src/visualizers/index.ts) and read through all the comments of the simple-text-visualizer!
