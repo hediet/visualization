@@ -10,15 +10,34 @@ export class PlotlyViewer extends React.Component<{
 }> {
 	render() {
 		const { theme, data, layout } = this.props;
+		const computedLayout = Object.assign(
+			{},
+			theme === "dark" ? darkLayout : {},
+			layout || {}
+		);
+
+		if (
+			data.length === 1 &&
+			data[0].type === "mesh3d" &&
+			(layout || {}).margin === undefined
+		) {
+			// Fixes https://github.com/JetBrains/rider-debug-visualizer-web-view/issues/6
+			Object.assign(computedLayout, {
+				margin: {
+					l: 0,
+					r: 0,
+					b: 0,
+					t: 0,
+					pad: 0,
+				},
+			});
+		}
+
 		return (
 			<Plot
 				style={{ width: "100%", height: "100%" }}
 				data={data}
-				layout={Object.assign(
-					{},
-					theme === "dark" ? darkLayout : {},
-					layout || {}
-				)}
+				layout={computedLayout}
 				config={{ responsive: true }}
 			/>
 		);
