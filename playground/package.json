@@ -7,7 +7,7 @@
 		"build": "yarn build-webpack && yarn build-docs",
 		"build-webpack": "node --max_old_space_size=4096 ../node_modules/webpack/bin/webpack.js --mode production",
 		"build-docs": "ts-node ./scripts/build-docs",
-		"pub": "gh-pages -d dist"
+		"pub": "gh-pages -d dist -u 'github-actions-bot <support+actions@github.com>'"
 	},
 	"dependencies": {
 		"@blueprintjs/core": "^3.23.1",
