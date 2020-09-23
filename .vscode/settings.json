@@ -1,3 +1,4 @@
 {
-	"tasksStatusbar.taskLabelFilter": "dev"
+	"tasksStatusbar.taskLabelFilter": "dev",
+	"editor.formatOnSave": true
 }
