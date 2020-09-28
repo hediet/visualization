@@ -78,6 +78,7 @@ export class DecoratedGridComponent extends React.Component<{
 
 		return (
 			<div
+				className="component-GridVisualizer"
 				style={{
 					height: "100%",
 					justifyContent: "center",

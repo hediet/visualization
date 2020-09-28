@@ -1,3 +1,7 @@
+.themeable {
+	--visualizer-tree-background: var(--visualizer-background);
+}
+
 .theme-dark {
 	--visualizer-tree-childOrThisMarked-background: orange;
 	--visualizer-tree-childOrThisSelected-background: white;
@@ -124,6 +128,8 @@
 }
 
 .component-TreeWithPathView {
+	background-color: var(--visualizer-tree-background);
+
 	display: flex;
 	flex-direction: column;
 	height: 100%;

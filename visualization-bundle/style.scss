@@ -1,6 +1,9 @@
+@import "./src/vars.scss";
 @import "./src/visualizers/grid-visualizer/style.scss";
 @import "./src/visualizers/simple-text-visualizer/style.scss";
 @import "./src/visualizers/monaco-text-visualizer/style.scss";
+@import "./src/visualizers/monaco-text-diff-visualizer/style.scss";
 @import "./src/visualizers/tree-visualizer/style.scss";
 @import "./src/visualizers/ast-visualizer/style.scss";
 @import "./src/visualizers/svg-visualizer/style.scss";
+@import "./src/visualizers/graph/graph-visjs-visualizer/style.scss";

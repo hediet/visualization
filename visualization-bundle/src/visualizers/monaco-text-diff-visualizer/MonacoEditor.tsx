@@ -109,7 +109,7 @@ export class MonacoEditor extends React.Component<{
 
 	render() {
 		return (
-			<div className="component-monaco-editor">
+			<div className="component-monaco-editor-diff-visualizer">
 				<div className="part-editor" ref={this.setEditorDiv} />
 			</div>
 		);

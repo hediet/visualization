@@ -1,5 +1,8 @@
 // Provide default colors for both the dark and light theme here!
 
+.themeable {
+	--visualizer-simple-text-background: var(--visualizer-background);
+}
 .theme-dark {
 	--visualizer-simple-text-color: white;
 }

@@ -1,3 +1,6 @@
+.themeable {
+	--visualizer-ast-background: var(--visualizer-background);
+}
 .theme-dark {
 	--visualizer-ast-marked-background: rgba(234, 92, 0, 0.33);
 	--visualizer-ast-selected-background: #515c6a;
@@ -8,6 +11,8 @@
 }
 
 .component-AstTree {
+	background: var(--visualizer-ast-background);
+
 	.part-editor {
 		//border-top: solid gray 1px;
 

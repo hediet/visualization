@@ -46,6 +46,8 @@ export const simpleTextVisualizer = createVisualizer({
 						// Use css vars for theming.
 						// See ./style.scss.
 						color: "var(--visualizer-simple-text-color)",
+						background: "var(--visualizer-simple-text-background)",
+						height: "100%",
 					}}
 				>
 					{data.text}

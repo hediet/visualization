@@ -1,8 +1,15 @@
+.themeable {
+	--visualizer-grid-background: var(--visualizer-background);
+}
 .theme-dark {
 	--visualizer-grid-empty-foreground: #f0f0f0;
 }
 .theme-light {
 	--visualizer-grid-empty-foreground: #000000;
+}
+
+.component-GridVisualizer {
+	background-color: var(--visualizer-grid-background);
 }
 
 .component-Grid {

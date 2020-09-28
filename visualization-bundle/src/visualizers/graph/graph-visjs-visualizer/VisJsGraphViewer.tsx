@@ -26,7 +26,13 @@ export class VisJsGraphViewer extends React.Component<{
 	}>();
 
 	render() {
-		return <div style={{ height: "100%" }} ref={this.divRef} />;
+		return (
+			<div
+				className="component-VisJsGraphViewer"
+				style={{ height: "100%" }}
+				ref={this.divRef}
+			/>
+		);
 	}
 
 	synchronizeData() {

@@ -1,0 +1,7 @@
+.themeable {
+	--visualizer-visjs-background: var(--visualizer-background);
+}
+
+.component-VisJsGraphViewer {
+	background-color: var(--visualizer-visjs-background);
+}

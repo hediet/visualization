@@ -61,10 +61,7 @@ body {
 @import "./vscode-dark.scss";
 @import "./vscode-light.scss";
 
-.visualization {
-	background: var(--vscode-editor-background);
-}
-
 .themeable {
+	background-color: violet; // To debug backgrounds
 	--visualizer-simple-text-color: var(--vscode-editor-foreground);
 }
