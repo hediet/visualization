@@ -21,7 +21,7 @@ export class VisJsGraphViewer extends React.Component<{
 		to: string;
 		label?: string;
 		color?: string;
-		dashes?: boolean;
+		dashes?: boolean | number[];
 		shape?: boolean;
 	}>();
 
@@ -69,7 +69,9 @@ export class VisJsGraphViewer extends React.Component<{
 				from: n.from,
 				to: n.to,
 				color: n.color,
-				dashes: n.dashes,
+				dashes: { dashed: true, dotted: [1, 4], solid: false }[
+					n.style || "solid"
+				],
 			});
 		}
 		this.edges.forEach(item => {

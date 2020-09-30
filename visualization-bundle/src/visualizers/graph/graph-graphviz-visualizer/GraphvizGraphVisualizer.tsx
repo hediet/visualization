@@ -5,7 +5,7 @@ import { GraphvizDotViewer } from "../dot-graphviz-visualizer/GraphvizDotVisuali
 @observer
 export class GraphvizGraphViewer extends React.Component<{
 	nodes: { id: string; label?: string }[];
-	edges: { from: string; to: string; label?: string }[];
+	edges: { from: string; to: string; label?: string; style: string }[];
 }> {
 	render() {
 		const { nodes, edges } = this.props;
@@ -26,7 +26,7 @@ export class GraphvizGraphViewer extends React.Component<{
 								e.to
 							}" [ label = ${JSON.stringify(
 								e.label !== undefined ? e.label : ""
-							)} ];`
+							)} style = ${JSON.stringify(e.style || "")} ];`
 					)
 					.join("\n")}
             }

@@ -25,7 +25,10 @@ export const sGraphEdge = sOpenObject({
 	label: sOptionalProp(sString(), {}),
 	id: sOptionalProp(sString(), {}),
 	color: sOptionalProp(sString(), {}),
-	dashes: sOptionalProp(sBoolean(), {}),
+	style: sOptionalProp(
+		sUnion([sLiteral("solid"), sLiteral("dashed"), sLiteral("dotted")]),
+		{}
+	),
 }).defineAs(visualizationNs("GraphEdge"));
 
 export const sGraph = sOpenObject({
