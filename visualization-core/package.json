@@ -1,7 +1,7 @@
 {
 	"name": "@hediet/visualization-core",
 	"description": "Provides infrastructure to find registered visualizations for given json data",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"license": "MIT",
 	"homepage": "https://github.com/hediet/visualization",
 	"repository": {
@@ -27,8 +27,8 @@
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"dependencies": {
-		"@hediet/std": "^0.6.0",
 		"@hediet/semantic-json": "^0.3.15",
+		"@hediet/std": "^0.6.0",
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
 		"react-measure": "^2.3.0"
