@@ -6,13 +6,17 @@ import {
 	sProp,
 } from "@hediet/semantic-json";
 import * as React from "react";
-import { getLanguageId, MonacoEditor } from "./MonacoEditor";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
 } from "@hediet/visualization-core";
 import { visualizationNs } from "../../consts";
+import { makeLazyLoadable } from "../../utils/LazyLoadable";
+
+export const MonacoEditorLazyLoadable = makeLazyLoadable(
+	async () => (await import("./MonacoEditor")).MonacoEditor
+);
 
 export const monacoTextVisualizer = createVisualizer({
 	id: "monaco-text",
@@ -28,15 +32,17 @@ export const monacoTextVisualizer = createVisualizer({
 		}),
 	}).defineAs(visualizationNs("MonacoTextVisualizationData")),
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 500 }, theme => {
-			let id = "text";
-			if (data.fileName) {
-				id = getLanguageId(data.fileName);
-			}
-			return (
-				<MonacoEditor text={data.text} languageId={id} theme={theme} />
-			);
-		}),
+		createReactVisualization(
+			self,
+			{ priority: 500, preload: MonacoEditorLazyLoadable.preload },
+			({ theme }) => (
+				<MonacoEditorLazyLoadable
+					text={data.text}
+					fileName={data.fileName}
+					theme={theme}
+				/>
+			)
+		),
 });
 
 globalVisualizationFactory.addVisualizer(monacoTextVisualizer);

@@ -4,39 +4,13 @@ import { observable, autorun } from "mobx";
 import * as monacoTypes from "monaco-editor";
 import { Theme } from "@hediet/visualization-core";
 import { getLoadedMonaco } from "@hediet/monaco-editor-react";
-
-export function getLanguageId(fileName: string): string {
-	const l = getLoadedMonaco().languages.getLanguages();
-	const result = l.find(l => {
-		if (l.filenamePatterns) {
-			for (const p of l.filenamePatterns) {
-				if (new RegExp(p).test(fileName)) {
-					return true;
-				}
-			}
-		}
-		if (l.extensions) {
-			for (const p of l.extensions) {
-				if (fileName.endsWith(p)) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	});
-
-	if (result) {
-		return result.id;
-	}
-	return "text";
-}
+import { getLanguageId } from "./getLanguageId";
 
 @observer
 export class MonacoEditor extends React.Component<{
 	text: string;
-	languageId: string;
 	theme: Theme;
+	fileName?: string;
 }> {
 	@observable private editor:
 		| monacoTypes.editor.IStandaloneCodeEditor
@@ -48,6 +22,13 @@ export class MonacoEditor extends React.Component<{
 		}
 	}
 
+	get languageId(): string {
+		if (!this.props.fileName) {
+			return "text";
+		}
+		return getLanguageId(this.props.fileName);
+	}
+
 	private model: monacoTypes.editor.ITextModel | undefined = undefined;
 
 	@disposeOnUnmount
@@ -55,7 +36,7 @@ export class MonacoEditor extends React.Component<{
 		if (this.editor) {
 			const model = getLoadedMonaco().editor.createModel(
 				this.props.text,
-				this.props.languageId,
+				this.languageId,
 				undefined
 			);
 

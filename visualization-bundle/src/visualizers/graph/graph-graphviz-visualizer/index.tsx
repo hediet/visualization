@@ -1,20 +1,25 @@
 import * as React from "react";
-import { GraphvizGraphViewer } from "./GraphvizGraphVisualizer";
 import { sGraph } from "../sGraph";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
 } from "@hediet/visualization-core";
+import { GraphvizDotViewer } from "../dot-graphviz-visualizer/GraphvizDotVisualizer";
+import { getSvgFromGraphData } from "./getGraphVizData";
 
 export const graphvizGraphVisualizer = createVisualizer({
 	id: "graphviz-graph",
 	name: "Graphviz",
 	serializer: sGraph,
-	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 1000 }, () => (
-			<GraphvizGraphViewer edges={data.edges} nodes={data.nodes} />
-		)),
+	getVisualization: (data, self) => {
+		const svgSource = getSvgFromGraphData(data.nodes, data.edges);
+		return createReactVisualization(
+			self,
+			{ priority: 1000, preload: () => svgSource.load() },
+			() => <GraphvizDotViewer svgSource={svgSource} />
+		);
+	},
 });
 
 globalVisualizationFactory.addVisualizer(graphvizGraphVisualizer);

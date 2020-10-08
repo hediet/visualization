@@ -4,15 +4,14 @@ import {
 	sLiteral,
 	sString,
 	sArrayOf,
-	sObject,
 	sOptionalProp,
 	sNumber,
 } from "@hediet/semantic-json";
 import { DecoratedGridComponent } from "./GridVisualizer";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
 } from "@hediet/visualization-core";
 import { visualizationNs } from "../../consts";
 
@@ -65,7 +64,7 @@ export const gridVisualizer = createVisualizer({
 	name: "Grid",
 	serializer: sGrid,
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 1000 }, () => (
+		createReactVisualization(self, { priority: 1000 }, () => (
 			<DecoratedGridComponent data={data} />
 		)),
 });

@@ -316,6 +316,11 @@
   resolved "https://registry.yarnpkg.com/@hediet/semantic-json/-/semantic-json-0.3.14.tgz#876bd5c4b646c134641ad17e9ef352595fb163e7"
   integrity sha512-u2QGfT98RNrcQjqRHwFUy+TU8+sLneBOYvHHNbkHyYNokqi8kCpE9LReTygGT+6SfMtydTWN6JT9L2ffxrvV6w==
 
+"@hediet/semantic-json@^0.3.15":
+  version "0.3.15"
+  resolved "https://registry.yarnpkg.com/@hediet/semantic-json/-/semantic-json-0.3.15.tgz#e38f799b1a7dd2624a3ee2e05bca58cfe76cb58d"
+  integrity sha512-8t1NXiYDF2wqIt1jEknxNnpucdtgFAI2MGSWnnewDhaYqWOJLMY/MxH60gDX03vycf2ySb6vEYpEwsiB6r0O3Q==
+
 "@hediet/std@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@hediet/std/-/std-0.6.0.tgz#f7d2ffc1180ecef6ff272d0d6780f0c0d9337e4e"

@@ -19,8 +19,8 @@ import {
 } from "@hediet/semantic-json";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
 } from "@hediet/visualization-core";
 import { visualizationNs } from "../../consts";
 
@@ -86,7 +86,7 @@ export const treeVisualizer = createVisualizer({
 	name: "Tree",
 	serializer: sTree,
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 1200 }, () => {
+		createReactVisualization(self, { priority: 1200 }, () => {
 			const m = createTreeViewModelFromTreeNodeData(
 				data.root,
 				() => undefined

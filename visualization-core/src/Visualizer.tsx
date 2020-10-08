@@ -23,6 +23,12 @@ export function asVisualizationId(id: string): VisualizationId {
 	return (id as unknown) as VisualizationId;
 }
 
+export interface VisualizationRenderOptions<TRenderState> {
+	theme: Theme;
+	previousRenderState: TRenderState | undefined;
+	readyCallback: () => void;
+}
+
 export interface Visualization<TRenderState = any> {
 	readonly id: VisualizationId;
 	readonly name: string;
@@ -31,7 +37,11 @@ export interface Visualization<TRenderState = any> {
 
 	render(
 		target: HTMLDivElement,
-		theme: Theme,
-		previousRenderState: TRenderState | undefined
-	): TRenderState;
+		options: VisualizationRenderOptions<TRenderState>
+	): { renderState: TRenderState };
+
+	/**
+	 * Preloads resources to speed up first rendering.
+	 */
+	preload(): Promise<void>;
 }

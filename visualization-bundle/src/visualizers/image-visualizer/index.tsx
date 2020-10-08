@@ -2,8 +2,8 @@ import { sOpenObject, sLiteral, sString, sProp } from "@hediet/semantic-json";
 import * as React from "react";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
 } from "@hediet/visualization-core";
 import { SvgViewer } from "../svg-visualizer/SvgViewer";
 import { Observer, observer, disposeOnUnmount } from "mobx-react";
@@ -22,7 +22,7 @@ export const imageVisualizer = createVisualizer({
 		}),
 	}).defineAs(visualizationNs("ImageVisualizationData")),
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 1000 }, () => {
+		createReactVisualization(self, { priority: 1000 }, () => {
 			return <ImageViewer base64Data={data.base64Data} />;
 		}),
 });

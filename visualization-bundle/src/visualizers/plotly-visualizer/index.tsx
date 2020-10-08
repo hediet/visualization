@@ -14,8 +14,9 @@ import {
 import { makeLazyLoadable } from "../../utils/LazyLoadable";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
+	createLazyReactVisualization,
 } from "@hediet/visualization-core";
 import { visualizationNs } from "../../consts";
 
@@ -111,13 +112,21 @@ export const plotlyVisualizer = createVisualizer({
 		),
 	}).defineAs(visualizationNs("PlotlyVisualizationData")),
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 1000 }, theme => (
-			<PlotlyViewerLazyLoadable
-				data={data.data}
-				layout={data.layout}
-				theme={theme.kind}
-			/>
-		)),
+		createLazyReactVisualization(
+			self,
+			{
+				priority: 1000,
+				preload: PlotlyViewerLazyLoadable.preload,
+			},
+			({ theme, readyCallback }) => (
+				<PlotlyViewerLazyLoadable
+					data={data.data}
+					layout={data.layout}
+					theme={theme}
+					onReady={readyCallback}
+				/>
+			)
+		),
 });
 
 globalVisualizationFactory.addVisualizer(plotlyVisualizer);

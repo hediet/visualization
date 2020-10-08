@@ -1,28 +1,29 @@
 import * as React from "react";
-import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
+import { Loadable } from "./Loadable";
 
 export function makeLazyLoadable<TProps>(
 	selector: () => Promise<React.ComponentClass<TProps>>
-): React.ComponentClass<TProps> {
+): React.ComponentClass<TProps> & { preload(): Promise<void> } {
+	const loader = new Loadable(selector);
+
 	@observer
 	class MyComponent extends React.Component<TProps> {
-		@observable
-		component: React.ComponentClass<TProps> | undefined;
-
-		async componentDidMount() {
-			const result = await selector();
-			runInAction("Set Lazily Loaded Component", () => {
-				this.component = result;
-			});
+		constructor(props: any) {
+			super(props);
+			loader.load();
 		}
 
 		render() {
-			if (!this.component) {
+			if (!loader.result) {
 				return <div>Loading...</div>;
 			}
-			const C = this.component;
+			const C = loader.result;
 			return <C {...this.props} />;
+		}
+
+		static async preload(): Promise<void> {
+			await loader.load();
 		}
 	}
 

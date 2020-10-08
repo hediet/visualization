@@ -2,7 +2,7 @@ import * as React from "react";
 import { observer, disposeOnUnmount } from "mobx-react";
 import { observable, autorun, trace, computed } from "mobx";
 import * as monacoTypes from "monaco-editor";
-import { getLanguageId } from "../monaco-text-visualizer/MonacoEditor";
+import { getLanguageId } from "../monaco-text-visualizer/getLanguageId";
 import {
 	TreeWithPathView,
 	TreeViewModel,

@@ -1,7 +1,7 @@
-import { observer, disposeOnUnmount } from "mobx-react";
+import { observer } from "mobx-react";
 import * as React from "react";
-import { observable, autorun, runInAction } from "mobx";
 import { SvgViewer } from "../../svg-visualizer/SvgViewer";
+import { Loadable } from "../../../utils/Loadable";
 
 class VisLoader {
 	private result: any | undefined;
@@ -24,26 +24,29 @@ class VisLoader {
 
 const vizLoader = new VisLoader();
 
+export function getSvgFromDotCode(dotCode: string): Loadable<string> {
+	return new Loadable(async () => {
+		const viz = await vizLoader.getViz();
+		return await viz.renderString(dotCode);
+	});
+}
+
 @observer
 export class GraphvizDotViewer extends React.Component<{
-	dotCode: string;
+	svgSource: Loadable<string>;
 	svgRef?: (element: SVGSVGElement | null) => void;
 }> {
-	@observable private svg: string | null = null;
-
-	@disposeOnUnmount
-	// @ts-ignore
-	private readonly _updateSvgAutorun = autorun(async () => {
-		const dotCode = this.props.dotCode; // to trigger mobx dependency
-		const viz = await vizLoader.getViz();
-		const svg = await viz.renderString(dotCode);
-		runInAction("Update svg", () => (this.svg = svg));
-	});
-
 	render() {
-		if (!this.svg) {
+		const { svgSource } = this.props;
+		svgSource.load();
+		if (!svgSource.result) {
 			return <div>Loading...</div>;
 		}
-		return <SvgViewer svgRef={this.props.svgRef} svgContent={this.svg} />;
+		return (
+			<SvgViewer
+				svgRef={this.props.svgRef}
+				svgContent={svgSource.result}
+			/>
+		);
 	}
 }

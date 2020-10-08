@@ -5,6 +5,7 @@ import { Theme } from "./Theme";
 export class VisualizationView extends React.Component<{
 	visualization: Visualization;
 	theme: Theme;
+	onReady?: () => void;
 }> {
 	private readonly ref = React.createRef<HTMLDivElement>();
 	private visualizationRenderState: unknown = undefined;
@@ -19,11 +20,18 @@ export class VisualizationView extends React.Component<{
 
 	renderVisualization() {
 		const { visualization, theme } = this.props;
-		this.visualizationRenderState = visualization.render(
-			this.ref.current!,
+		const { renderState } = visualization.render(this.ref.current!, {
 			theme,
-			this.visualizationRenderState
-		);
+			previousRenderState: this.visualizationRenderState,
+			readyCallback: () => {
+				const r = this.props.onReady;
+				if (r) {
+					r();
+				}
+			},
+		});
+
+		this.visualizationRenderState = renderState;
 	}
 
 	render() {

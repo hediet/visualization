@@ -1,7 +1,7 @@
 {
 	"name": "@hediet/visualization-bundle",
 	"description": "Bundles several visualizers",
-	"version": "0.1.8",
+	"version": "0.1.9",
 	"license": "MIT",
 	"scripts": {
 		"dev": "tsc --watch",
@@ -24,7 +24,7 @@
 		"@finos/perspective-viewer-d3fc": "^0.5.2",
 		"@finos/perspective-viewer-datagrid": "^0.5.2",
 		"@hediet/monaco-editor-react": "^0.1.1",
-		"@hediet/semantic-json": "^0.3.14",
+		"@hediet/semantic-json": "^0.3.15",
 		"@hediet/std": "^0.6.0",
 		"classnames": "^2.2.6",
 		"line-column": "^1.0.2",

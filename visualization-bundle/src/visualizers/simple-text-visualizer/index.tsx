@@ -2,8 +2,8 @@ import { sOpenObject, sLiteral, sString } from "@hediet/semantic-json";
 import * as React from "react";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
 } from "@hediet/visualization-core";
 import { visualizationNs } from "../../consts";
 
@@ -30,7 +30,7 @@ export const simpleTextVisualizer = createVisualizer({
 	) =>
 		// If you want to use react, this is the way to go.
 		// Return your own implementation if you want to render directly to the DOM.
-		new ReactVisualization(
+		createReactVisualization(
 			self,
 			{
 				// The priority is used for automatically selecting the best visualization

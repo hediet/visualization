@@ -33,10 +33,10 @@ export function getLanguageId(fileName: string): string {
 }
 
 @observer
-export class MonacoEditor extends React.Component<{
+export class MonacoDiffEditor extends React.Component<{
 	originalText: string;
 	modifiedText: string;
-	languageId: string;
+	fileName?: string;
 	theme: Theme;
 }> {
 	@observable private editor:
@@ -47,6 +47,13 @@ export class MonacoEditor extends React.Component<{
 		if (this.editor) {
 			this.editor.dispose();
 		}
+	}
+
+	get languageId(): string {
+		if (!this.props.fileName) {
+			return "text";
+		}
+		return getLanguageId(this.props.fileName);
 	}
 
 	private originalModel:
@@ -61,12 +68,12 @@ export class MonacoEditor extends React.Component<{
 		if (this.editor) {
 			const originalModel = getLoadedMonaco().editor.createModel(
 				this.props.originalText,
-				this.props.languageId,
+				this.languageId,
 				undefined
 			);
 			const modifiedModel = getLoadedMonaco().editor.createModel(
 				this.props.modifiedText,
-				this.props.languageId,
+				this.languageId,
 				undefined
 			);
 

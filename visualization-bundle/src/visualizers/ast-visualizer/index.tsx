@@ -14,8 +14,8 @@ import {
 import { visualizationNs } from "../../consts";
 import {
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
+	createReactVisualization,
 } from "@hediet/visualization-core";
 import { createTreeViewModelFromTreeNodeData } from "../tree-visualizer";
 import { AstTree, NodeInfo } from "./AstVisualizer";
@@ -81,7 +81,7 @@ export const astVisualizer = createVisualizer({
 	name: "AST",
 	serializer: sAstTree,
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 1500 }, theme => {
+		createReactVisualization(self, { priority: 1500 }, ({ theme }) => {
 			const m = createTreeViewModelFromTreeNodeData(
 				data.root,
 				node => node.span

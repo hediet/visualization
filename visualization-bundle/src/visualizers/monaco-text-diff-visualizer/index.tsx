@@ -7,15 +7,16 @@ import {
 } from "@hediet/semantic-json";
 import * as React from "react";
 import {
-	getLanguageId,
-	MonacoEditor as MonacoDiffEditor,
-} from "./MonacoEditor";
-import {
+	createReactVisualization,
 	createVisualizer,
-	ReactVisualization,
 	globalVisualizationFactory,
 } from "@hediet/visualization-core";
 import { visualizationNs } from "../../consts";
+import { makeLazyLoadable } from "../../utils/LazyLoadable";
+
+const MonacoDiffEditorLazyLoadable = makeLazyLoadable(
+	async () => (await import("./MonacoEditor")).MonacoDiffEditor
+);
 
 export const monacoTextDiffVisualizer = createVisualizer({
 	id: "monaco-text-diff",
@@ -34,20 +35,18 @@ export const monacoTextDiffVisualizer = createVisualizer({
 		}),
 	}).defineAs(visualizationNs("MonacoTextDiffVisualizationData")),
 	getVisualization: (data, self) =>
-		new ReactVisualization(self, { priority: 900 }, theme => {
-			let id = "text";
-			if (data.fileName) {
-				id = getLanguageId(data.fileName);
-			}
-			return (
-				<MonacoDiffEditor
+		createReactVisualization(
+			self,
+			{ priority: 900, preload: MonacoDiffEditorLazyLoadable.preload },
+			({ theme }) => (
+				<MonacoDiffEditorLazyLoadable
 					originalText={data.otherText}
 					modifiedText={data.text}
-					languageId={id}
+					fileName={data.fileName}
 					theme={theme}
 				/>
-			);
-		}),
+			)
+		),
 });
 
 globalVisualizationFactory.addVisualizer(monacoTextDiffVisualizer);
