@@ -320,8 +320,24 @@
                 "color": {
                     "type": "string"
                 },
-                "dashes": {
-                    "type": "boolean"
+                "style": {
+                    "oneOf": [
+                        {
+                            "enum": [
+                                "solid"
+                            ]
+                        },
+                        {
+                            "enum": [
+                                "dashed"
+                            ]
+                        },
+                        {
+                            "enum": [
+                                "dotted"
+                            ]
+                        }
+                    ]
                 }
             },
             "required": [
@@ -476,6 +492,27 @@
                     "type": "string",
                     "description": "The text to show"
                 },
+                "decorations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "range": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/definitions/LineColumnRange"
+                                    }
+                                ]
+                            },
+                            "label": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "range"
+                        ]
+                    }
+                },
                 "fileName": {
                     "type": "string",
                     "description": "An optional filename that might be used for chosing a syntax highlighter"
@@ -484,6 +521,40 @@
             "required": [
                 "kind",
                 "text"
+            ]
+        },
+        "LineColumnRange": {
+            "type": "object",
+            "properties": {
+                "start": {
+                    "$ref": "#/definitions/LineColumnPosition",
+                    "description": "The start position"
+                },
+                "end": {
+                    "$ref": "#/definitions/LineColumnPosition",
+                    "description": "The end position"
+                }
+            },
+            "required": [
+                "start",
+                "end"
+            ]
+        },
+        "LineColumnPosition": {
+            "type": "object",
+            "properties": {
+                "line": {
+                    "type": "number",
+                    "description": "The 0-based line number"
+                },
+                "column": {
+                    "type": "number",
+                    "description": "The 0-based column number"
+                }
+            },
+            "required": [
+                "line",
+                "column"
             ]
         },
         "MonacoTextDiffVisualizationData": {
