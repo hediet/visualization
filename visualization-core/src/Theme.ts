@@ -1,6 +1,19 @@
 export class Theme {
-	public static readonly light = new Theme("light", "light");
-	public static readonly dark = new Theme("dark", "dark");
+	private static _light: Theme;
+	public static get light(): Theme {
+		if (!this._light) {
+			this._light = new Theme("light", "light");
+		}
+		return this._light;
+	}
+
+	private static _dark: Theme;
+	public static get dark(): Theme {
+		if (!this._dark) {
+			this._dark = new Theme("dark", "dark");
+		}
+		return this._dark;
+	}
 
 	private readonly divElement = document.createElement("div");
 
