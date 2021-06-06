@@ -25,3 +25,17 @@
 		}
 	}
 }
+
+.decoration-whitespace {
+	color: black !important;
+	opacity: 0.4;
+}
+
+.decoration-empty {
+	margin-left: -1px;
+	border-left: solid rgba(255, 0, 0, 0.815) 3px;
+}
+
+.decoration {
+	background-color: rgba(250, 36, 36, 0.459);
+}

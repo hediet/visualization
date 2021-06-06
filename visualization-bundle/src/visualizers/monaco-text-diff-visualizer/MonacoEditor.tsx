@@ -105,6 +105,7 @@ export class MonacoDiffEditor extends React.Component<{
 			fixedOverflowWidgets: true,
 			readOnly: true,
 			theme: this.props.theme.kind === "dark" ? "vs-dark" : "vs",
+			renderWhitespace: "all",
 		});
 		if (this.originalModel && this.modifiedModel) {
 			this.editor.setModel({
