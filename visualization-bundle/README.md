@@ -95,3 +95,8 @@ You can use the [`simple-text-visualizer`](./src/visualizers/simple-text-visuali
 Just copy the folder, rename the ids and names, export it [here](./src/visualizers/index.ts) and read through all the comments of the simple-text-visualizer!
 
 Use the "open" button in the playground to debug your new visualization!
+
+## Machine Readable Documents
+
+-   [TypeScript Declarations](https://hediet.github.io/visualization/docs/visualization-data.ts)
+-   [JSON Schema](https://hediet.github.io/visualization/docs/visualization-data-schema.json)
