@@ -1,7 +1,7 @@
 import { observer, disposeOnUnmount } from "mobx-react";
 import { observable, autorun, computed, action, runInAction } from "mobx";
 import * as React from "react";
-import * as classNames from "classnames";
+import classNames from "classnames";
 import { Rectangle, Point } from "./Point";
 import { SvgLine } from "./SvgElements";
 import { Item } from ".";
