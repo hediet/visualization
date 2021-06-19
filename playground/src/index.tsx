@@ -1,3 +1,5 @@
+(globalThis as any).MonacoEnvironment = { globalAPI: true };
+
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./style.scss";
