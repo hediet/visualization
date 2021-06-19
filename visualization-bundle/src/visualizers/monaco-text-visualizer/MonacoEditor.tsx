@@ -17,7 +17,10 @@ export class MonacoEditor extends React.Component<{
 	theme: Theme;
 	fileName?: string;
 	decorations?: Decoration[];
+	jsonSchemas?: { schema: unknown }[];
 }> {
+	public static nextId = 0;
+
 	@observable private editor:
 		| monacoTypes.editor.IStandaloneCodeEditor
 		| undefined;
@@ -42,9 +45,8 @@ export class MonacoEditor extends React.Component<{
 	@disposeOnUnmount
 	private _updateText = autorun(() => {
 		if (this.editor) {
-			const decorations = new Array<
-				monacoTypes.editor.IModelDeltaDecoration
-			>();
+			const decorations =
+				new Array<monacoTypes.editor.IModelDeltaDecoration>();
 			const propDecorations = this.props.decorations || [];
 			const lines = this.props.text.split("\n");
 			const mappedLines = lines.map((l, idx) => {
@@ -54,7 +56,7 @@ export class MonacoEditor extends React.Component<{
 
 				if (
 					!propDecorations.some(
-						d =>
+						(d) =>
 							((d.range.endLineNumber === idx + 2 &&
 								d.range.endColumn === 1) ||
 								(d.range.startLineNumber === idx + 1 &&
@@ -82,19 +84,48 @@ export class MonacoEditor extends React.Component<{
 			});
 			const text = mappedLines.join("\n");
 
+			const modelId = MonacoEditor.nextId++;
+
 			const model = getLoadedMonaco().editor.createModel(
 				text,
 				this.languageId,
-				undefined
+				getLoadedMonaco().Uri.parse(
+					`inmemory://inmemory/model${modelId}`
+				)
 			);
 
 			this.editor.setModel(model);
+
+			if (this.props.jsonSchemas) {
+				const existingSchemas =
+					getLoadedMonaco().languages.json.jsonDefaults
+						.diagnosticsOptions.schemas || [];
+
+				getLoadedMonaco().languages.json.jsonDefaults.setDiagnosticsOptions(
+					{
+						validate: true,
+						schemas: [
+							...existingSchemas.filter(
+								(s) =>
+									!s.uri.startsWith(
+										"https://example.org/schemas/temp/"
+									)
+							),
+							...this.props.jsonSchemas.map((s, idx) => ({
+								uri: "https://example.org/schemas/temp/" + idx,
+								fileMatch: [`model${modelId}`],
+								schema: s.schema,
+							})),
+						],
+					}
+				);
+			}
 
 			this.prevDecorations = this.editor.deltaDecorations(
 				[],
 				[
 					...decorations,
-					...propDecorations.map(d => {
+					...propDecorations.map((d) => {
 						const r = getLoadedMonaco().Range.lift(d.range);
 						return {
 							range: r,
@@ -143,6 +174,7 @@ export class MonacoEditor extends React.Component<{
 			readOnly: true,
 			theme: this.props.theme.kind === "dark" ? "vs-dark" : "vs",
 			renderWhitespace: "all",
+			renderValidationDecorations: "on",
 		});
 	};
 

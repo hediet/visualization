@@ -7,6 +7,7 @@ import {
 	sArrayOf,
 	sNumber,
 	sUnion,
+	sAny,
 } from "@hediet/semantic-json";
 import * as React from "react";
 import {
@@ -57,6 +58,20 @@ export const monacoTextVisualizer = createVisualizer({
 				})
 			)
 		),
+		jsonSchemas: sOptionalProp(
+			sArrayOf(
+				sOpenObject({
+					schema: sProp(sAny(), {
+						description:
+							"A json schema object that is applied when the fileName indicates a JSON document.",
+					}),
+				})
+			),
+			{
+				description:
+					"An array of schemas used to validate JSON documents.",
+			}
+		),
 		fileName: sOptionalProp(sString(), {
 			description:
 				"An optional filename that might be used for chosing a syntax highlighter",
@@ -66,9 +81,9 @@ export const monacoTextVisualizer = createVisualizer({
 		createReactVisualization(
 			self,
 			{ priority: 500, preload: MonacoEditorLazyLoadable.preload },
-			function({ theme }) {
+			function ({ theme }) {
 				const decorations = data.decorations
-					? data.decorations.map<Decoration>(d => ({
+					? data.decorations.map<Decoration>((d) => ({
 							label: d.label,
 							range: {
 								startLineNumber: d.range.start.line + 1,
@@ -85,6 +100,7 @@ export const monacoTextVisualizer = createVisualizer({
 						fileName={data.fileName}
 						theme={theme}
 						decorations={decorations}
+						jsonSchemas={data.jsonSchemas}
 					/>
 				);
 			}

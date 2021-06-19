@@ -1,4 +1,4 @@
-import { sOpenObject } from "@hediet/semantic-json";
+import { JsonSchemaGenerator, sOpenObject } from "@hediet/semantic-json";
 import * as React from "react";
 import {
 	createReactVisualization,
@@ -15,13 +15,24 @@ export const sourceVisualizer = createVisualizer({
 		kind: sOpenObject({}),
 	}).defineAs(visualizationNs("SourceVisualizationData")),
 	getVisualization: (data, self) =>
-		createReactVisualization(self, { priority: -100 }, ({ theme }) => (
-			<MonacoEditorLazyLoadable
-				text={JSON.stringify(data, undefined, 4)}
-				fileName={"main.json"}
-				theme={theme}
-			/>
-		)),
+		createReactVisualization(self, { priority: -100 }, ({ theme }) => {
+			const s = new JsonSchemaGenerator();
+
+			return (
+				<MonacoEditorLazyLoadable
+					text={JSON.stringify(data, undefined, 4)}
+					fileName={"main.json"}
+					theme={theme}
+					jsonSchemas={[
+						{
+							schema: s.getJsonSchemaWithDefinitions(
+								globalVisualizationFactory.getSerializer()
+							),
+						},
+					]}
+				/>
+			);
+		}),
 });
 
 globalVisualizationFactory.addHiddenVisualizer(sourceVisualizer);

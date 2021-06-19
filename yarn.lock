@@ -302,6 +302,11 @@
   resolved "https://registry.yarnpkg.com/@hediet/monaco-editor-react/-/monaco-editor-react-0.1.1.tgz#041f805aeb188403c7876f0f364d2a429e706031"
   integrity sha512-0DZZfLcFNuc3Wrn+2eztnRloCBe6GV8zIrGT3LPdZlWYEigJT+Qh7ANvRHF0tCS5YPAFGQNZJcfzKbBfqRGo4w==
 
+"@hediet/monaco-editor-react@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@hediet/monaco-editor-react/-/monaco-editor-react-0.2.0.tgz#4a98102baf1942f210fc19fd406b6c82da3bf583"
+  integrity sha512-EA71+iv9sV25+YgBQDJ4Ou17sOJCXQat7r5AOD5STZHcUQdSuQufI2t9ue+wJIm4048P9sQ/ruW3pYmwxF9Amw==
+
 "@hediet/semantic-json@^0.3.14", "@hediet/semantic-json@^0.3.15":
   version "0.3.15"
   resolved "https://registry.yarnpkg.com/@hediet/semantic-json/-/semantic-json-0.3.15.tgz#e38f799b1a7dd2624a3ee2e05bca58cfe76cb58d"
@@ -5487,6 +5492,11 @@ monaco-editor@^0.20.0:
   version "0.20.0"
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.20.0.tgz#5d5009343a550124426cb4d965a4d27a348b4dea"
   integrity sha512-hkvf4EtPJRMQlPC3UbMoRs0vTAFAYdzFQ+gpMb8A+9znae1c43q8Mab9iVsgTcg/4PNiLGGn3SlDIa8uvK1FIQ==
+
+monaco-editor@^0.25.2:
+  version "0.25.2"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.25.2.tgz#119e2b15bbd968a1a99c03cac9c329316d7c37e9"
+  integrity sha512-5iylzSJevCnzJn9UVsW8yOZ3yHjmAs4TfvH3zsbftKiFKmHG0xirGN6DK9Kk04VSWxYCZZAIafYJoNJJMAU1KA==
 
 monotone-convex-hull-2d@^1.0.1:
   version "1.0.1"
