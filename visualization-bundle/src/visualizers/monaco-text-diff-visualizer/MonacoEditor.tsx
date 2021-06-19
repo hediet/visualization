@@ -7,7 +7,7 @@ import { getLoadedMonaco } from "@hediet/monaco-editor-react";
 
 export function getLanguageId(fileName: string): string {
 	const l = getLoadedMonaco().languages.getLanguages();
-	const result = l.find(l => {
+	const result = l.find((l) => {
 		if (l.filenamePatterns) {
 			for (const p of l.filenamePatterns) {
 				if (new RegExp(p).test(fileName)) {
@@ -56,12 +56,10 @@ export class MonacoDiffEditor extends React.Component<{
 		return getLanguageId(this.props.fileName);
 	}
 
-	private originalModel:
-		| monacoTypes.editor.ITextModel
-		| undefined = undefined;
-	private modifiedModel:
-		| monacoTypes.editor.ITextModel
-		| undefined = undefined;
+	private originalModel: monacoTypes.editor.ITextModel | undefined =
+		undefined;
+	private modifiedModel: monacoTypes.editor.ITextModel | undefined =
+		undefined;
 
 	@disposeOnUnmount
 	private _updateText = autorun(() => {
@@ -106,6 +104,7 @@ export class MonacoDiffEditor extends React.Component<{
 			readOnly: true,
 			theme: this.props.theme.kind === "dark" ? "vs-dark" : "vs",
 			renderWhitespace: "all",
+			ignoreTrimWhitespace: false,
 		});
 		if (this.originalModel && this.modifiedModel) {
 			this.editor.setModel({
