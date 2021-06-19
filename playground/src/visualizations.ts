@@ -12,7 +12,7 @@
 // import "@hediet/visualization-bundle/dist/visualizers/perspective-table-visualizer" /*
 // import "@hediet/visualization-bundle/dist/visualizers/plotly-visualizer" /*
 // import "@hediet/visualization-bundle/dist/visualizers/simple-text-visualizer"; /*
-import "@hediet/visualization-bundle/dist/visualizers/source-visualizer"; /*
+// import "@hediet/visualization-bundle/dist/visualizers/source-visualizer"; /*
 // import "@hediet/visualization-bundle/dist/visualizers/svg-visualizer" /*
 // import "@hediet/visualization-bundle/dist/visualizers/tree-visualizer"; /*
 
