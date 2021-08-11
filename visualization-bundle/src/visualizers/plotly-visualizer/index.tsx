@@ -51,6 +51,10 @@ export const plotlyVisualizer = createVisualizer({
 					header: sOptionalProp(sOpenObject({
 						values: sDatumArr,
 					})),
+					domain: sOptionalProp(sOpenObject({
+						x: sArrayOf(sNumber()),
+						y: sArrayOf(sNumber()),
+					})),
 					type: sOptionalProp(
 						sUnion([
 							sLiteral("bar"),
