@@ -912,6 +912,27 @@
                                     "values"
                                 ]
                             },
+                            "domain": {
+                                "type": "object",
+                                "properties": {
+                                    "x": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "y": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "x",
+                                    "y"
+                                ]
+                            },
                             "type": {
                                 "oneOf": [
                                     {

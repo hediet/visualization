@@ -233,6 +233,10 @@ export type PlotlyVisualizationData = {
 		header?: {
 			values: (string | number | null)[] | ((string | number | null)[])[];
 		};
+		domain?: {
+			x: (number)[];
+			y: (number)[];
+		};
 		type?: "bar" | "box" | "candlestick" | "choropleth" | "contour" | "heatmap" | "histogram" | "indicator" | "mesh3d" | "ohlc" | "parcoords" | "pie" | "pointcloud" | "scatter" | "scatter3d" | "scattergeo" | "scattergl" | "scatterpolar" | "scatterternary" | "sunburst" | "surface" | "treemap" | "waterfall" | "funnel" | "funnelarea" | "scattermapbox" | "table";
 		mode?: "lines" | "markers" | "text" | "lines+markers" | "text+markers" | "text+lines" | "text+lines+markers" | "none" | "gauge" | "number" | "delta" | "number+delta" | "gauge+number" | "gauge+number+delta" | "gauge+delta";
 	})[];
