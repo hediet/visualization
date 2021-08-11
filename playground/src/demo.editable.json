@@ -13,6 +13,10 @@
 			"name": "Plotly Table Visualizer"
 		},
 		{
+			"dataSrc": "{\n  \"kind\": {\n    \"plotly\": true\n  },\n  \"data\": [{\n    \"mode\": \"lines\",\n    \"type\": \"scatter\",\n    \"x\": [\"A\", \"B\", \"C\"],\n    \"xaxis\": \"x\",\n    \"y\": [4488916, 3918072, 3892124],\n    \"yaxis\": \"y\"\n  }, {\n    \"cells\": {\n      \"values\": [\n        [\"A\", \"B\", \"C\"],\n        [341319, 281489, 294786],\n        [4488916, 3918072, 3892124]\n      ]\n    },\n    \"domain\": {\n      \"x\": [0.0, 1.0],\n      \"y\": [0.0, 0.60]\n    },\n    \"header\": {\n      \"align\": \"left\",\n      \"font\": {\n        \"size\": 10\n      },\n      \"values\": [\"Date\", \"Number\", \"Output\"]\n    },\n    \"type\": \"table\"\n  }],\n  \"layout\": {\n    \"xaxis\": {\n      \"anchor\": \"y\",\n      \"domain\": [0.0, 1.0]\n    },\n    \"yaxis\": {\n      \"anchor\": \"x\",\n      \"domain\": [0.75, 1.0]\n    }\n  }\n}",
+			"name": "Plotly multi Visualizer"
+		},
+		{
 			"dataSrc": "{\r\n    \"kind\": { \"graph\": true },\r\n    \"nodes\": [\r\n        { \"id\": \"1\", \"label\": \"1\" },\r\n        { \"id\": \"2\", \"label\": \"2\", \"color\": \"orange\" },\r\n        { \"id\": \"3\", \"label\": \"3\" }\r\n    ],\r\n    \"edges\": [\r\n        { \"from\": \"1\", \"to\": \"2\", \"color\": \"red\" },\r\n        { \"from\": \"1\", \"to\": \"3\" }\r\n    ]\r\n}",
 			"name": "VisJS Graph Visualizer"
 		},
