@@ -3,6 +3,11 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import Plot from "react-plotly.js";
 
+// needs to be overwriten since the table layout is not defined in @types/plotly.js
+interface PlotlyLayoutAnyTemplate extends Plotly.Layout {
+	template: any;
+}
+
 @observer
 export class PlotlyViewer extends React.Component<{
 	data: Plotly.Data[];
@@ -47,7 +52,7 @@ export class PlotlyViewer extends React.Component<{
 	}
 }
 
-function getLayout(theme: Theme): Partial<Plotly.Layout> {
+function getLayout(theme: Theme): Partial<PlotlyLayoutAnyTemplate> {
 	return {
 		colorway: [
 			"#636efa",
@@ -140,11 +145,19 @@ function getLayout(theme: Theme): Partial<Plotly.Layout> {
 				"--visualizer-plotly-background"
 			),
 		},
+		template: {
+			data: {
+				table: [{
+					cells: { fill: { color: theme.resolveVarToColor("--visualizer-background") } },
+					header: { fill: { color: "rgb(17, 17, 17)" } },
+				}]
+			}
+		}
 	};
 }
 
 // extracted from the plotly website
-const darkLayout: Partial<Plotly.Layout> = {
+const darkLayout: Partial<PlotlyLayoutAnyTemplate> = {
 	colorway: [
 		"#636efa",
 		"#EF553B",

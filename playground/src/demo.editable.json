@@ -9,6 +9,10 @@
 			"name": "Plotly 3D Mesh Visualizer"
 		},
 		{
+			"dataSrc": "{\r\n    \"kind\":{ \"plotly\": true },\r\n    \"data\": [{\r\n      \"header\": {\r\n         \"values\": [\"H1\", \"H2\", \"H3\"]\r\n      },\r\n      \"cells\": {\r\n         \"values\": [\r\n            [\"A\", \"B\", \"C\"],\r\n            [341319, 281489, 294786],\r\n            [4488916, 3918072, 3892124]\r\n         ]\r\n      },\r\n      \"type\": \"table\"\r\n   }],\r\n   \"layout\": {}\r\n}",
+			"name": "Plotly Table Visualizer"
+		},
+		{
 			"dataSrc": "{\r\n    \"kind\": { \"graph\": true },\r\n    \"nodes\": [\r\n        { \"id\": \"1\", \"label\": \"1\" },\r\n        { \"id\": \"2\", \"label\": \"2\", \"color\": \"orange\" },\r\n        { \"id\": \"3\", \"label\": \"3\" }\r\n    ],\r\n    \"edges\": [\r\n        { \"from\": \"1\", \"to\": \"2\", \"color\": \"red\" },\r\n        { \"from\": \"1\", \"to\": \"3\" }\r\n    ]\r\n}",
 			"name": "VisJS Graph Visualizer"
 		},
