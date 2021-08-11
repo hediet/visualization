@@ -45,6 +45,12 @@ export const plotlyVisualizer = createVisualizer({
 					x: sOptionalProp(sDatumArr),
 					y: sOptionalProp(sDatumArr),
 					z: sOptionalProp(sDatumArr),
+					cells: sOptionalProp(sOpenObject({
+						values: sArrayOf(sDatumArr),
+					})),
+					header: sOptionalProp(sOpenObject({
+						values: sDatumArr,
+					})),
 					type: sOptionalProp(
 						sUnion([
 							sLiteral("bar"),
@@ -73,6 +79,7 @@ export const plotlyVisualizer = createVisualizer({
 							sLiteral("funnel"),
 							sLiteral("funnelarea"),
 							sLiteral("scattermapbox"),
+							sLiteral("table"),
 						])
 					),
 					mode: sOptionalProp(
