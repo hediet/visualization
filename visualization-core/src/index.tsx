@@ -5,3 +5,4 @@ export * from "./VisualizerRegistry";
 export * from "./VisualizationView";
 export * from "./Theme";
 export * from "./createVisualizer";
+export * from "./RegisterVisualizerFn";

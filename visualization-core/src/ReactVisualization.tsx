@@ -7,93 +7,75 @@ import {
 	asVisualizationId,
 	VisualizationRenderOptions,
 } from "./Visualizer";
+import { Deferred } from "@hediet/std/synchronization";
 
-interface Options {
-	id?: string;
-	name?: string;
+interface ReactVisualizationArgs {
 	priority: number;
+	preload?: (() => Promise<void>) | undefined;
 }
 
-export abstract class BaseReactVisualization implements Visualization<unknown> {
+class ReactVisualization implements Visualization<unknown> {
 	public readonly id: VisualizationId;
 	public readonly name: string;
 	public readonly priority: number;
+	private readonly _preload: (() => Promise<void>) | undefined;
 
 	constructor(
 		public readonly sourceVisualizer: Visualizer,
-		options: Options
+		options: ReactVisualizationArgs,
+		private readonly getReactNode: (
+			options: ReactVisualizationRenderArgs
+		) => {
+			node: React.ReactChild;
+			ready: Promise<void>;
+		}
 	) {
-		this.id = asVisualizationId(
-			options.id || sourceVisualizer.id.toString()
-		);
-		this.name = options.name || sourceVisualizer.name;
+		this.id = asVisualizationId(sourceVisualizer.id.toString());
+		this.name = sourceVisualizer.name;
 		this.priority = options.priority;
+		this._preload = options.preload;
+	}
+
+	public preload(): Promise<void> {
+		return this._preload ? this._preload() : Promise.resolve();
 	}
 
 	public render(
 		target: HTMLDivElement,
 		options: VisualizationRenderOptions<unknown>
-	): { renderState: unknown } {
-		const node = this.getReactNode({
+	): { renderState: unknown; ready: Promise<void> } {
+		const { node, ready } = this.getReactNode({
 			theme: options.theme,
-			readyCallback: options.readyCallback,
 		});
 		// We could use this to get access to theme vars:
-		//getComputedStyle(target).getPropertyValue("--background-color")
+		// getComputedStyle(target).getPropertyValue("--background-color")
 
 		ReactDom.render(<>{node}</>, target);
-		return { renderState: undefined };
+		return { renderState: undefined, ready };
 	}
-
-	public abstract preload(): Promise<void>;
-	protected abstract getReactNode(
-		options: ReactVisualizationRenderOptions
-	): React.ReactChild;
 }
 
-export interface ReactVisualizationRenderOptions {
+export interface ReactVisualizationRenderArgs {
 	theme: Theme;
-	readyCallback: () => void;
-}
-
-class ReactVisualization extends BaseReactVisualization {
-	private readonly _preload?: () => Promise<void>;
-
-	constructor(
-		sourceVisualizer: Visualizer,
-		options: Options & { preload?: () => Promise<void> },
-		private readonly renderReactNode: (
-			options: ReactVisualizationRenderOptions
-		) => React.ReactChild
-	) {
-		super(sourceVisualizer, options);
-		this._preload = options.preload;
-	}
-
-	protected getReactNode(
-		options: ReactVisualizationRenderOptions
-	): React.ReactChild {
-		return this.renderReactNode(options);
-	}
-
-	public async preload(): Promise<void> {
-		if (this._preload) {
-			return await this._preload();
-		}
-	}
 }
 
 export function createReactVisualization(
 	sourceVisualizer: Visualizer,
-	options: Options & { preload?: () => Promise<void> },
-	renderReactNode: (options: { theme: Theme }) => React.ReactChild
+	args: ReactVisualizationArgs,
+	renderReactNode: (args: ReactVisualizationRenderArgs) => React.ReactChild
 ) {
-	return new ReactVisualization(sourceVisualizer, options, options => (
-		<ComponentWithOnMount
-			onDidMount={options.readyCallback}
-			child={renderReactNode(options)}
-		/>
-	));
+	return new ReactVisualization(sourceVisualizer, args, (options) => {
+		const deferred = new Deferred();
+		return {
+			node: (
+				<ComponentWithOnMount
+					onDidMount={() => deferred.resolve()}
+					child={renderReactNode(options)}
+				/>
+			),
+			ready: deferred.promise,
+		};
+	});
 }
 
 class ComponentWithOnMount extends React.Component<{
@@ -111,12 +93,11 @@ class ComponentWithOnMount extends React.Component<{
 
 export function createLazyReactVisualization(
 	sourceVisualizer: Visualizer,
-	options: Options & { preload?: () => Promise<void> },
-	renderReactNode: (
-		options: ReactVisualizationRenderOptions
-	) => React.ReactChild
+	args: ReactVisualizationArgs,
+	renderReactNode: (args: ReactVisualizationRenderArgs) => {
+		node: React.ReactChild;
+		ready: Promise<void>;
+	}
 ) {
-	return new ReactVisualization(sourceVisualizer, options, options =>
-		renderReactNode(options)
-	);
+	return new ReactVisualization(sourceVisualizer, args, renderReactNode);
 }

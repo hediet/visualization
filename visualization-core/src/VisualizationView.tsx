@@ -20,15 +20,15 @@ export class VisualizationView extends React.Component<{
 
 	renderVisualization() {
 		const { visualization, theme } = this.props;
-		const { renderState } = visualization.render(this.ref.current!, {
+		const { renderState, ready } = visualization.render(this.ref.current!, {
 			theme,
 			previousRenderState: this.visualizationRenderState,
-			readyCallback: () => {
-				const r = this.props.onReady;
-				if (r) {
-					r();
-				}
-			},
+		});
+
+		ready.then(() => {
+			if (this.props.onReady) {
+				return this.props.onReady();
+			}
 		});
 
 		this.visualizationRenderState = renderState;

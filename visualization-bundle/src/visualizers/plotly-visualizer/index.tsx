@@ -1,24 +1,23 @@
-import * as React from "react";
 import {
-	sOpenObject,
-	sLiteral,
 	sArrayOf,
+	sLiteral,
+	sNull,
+	sNumber,
+	sOpenObject,
 	sOptionalProp,
-	sAny,
 	sProp,
 	sString,
 	sUnion,
-	sNumber,
-	sNull,
 } from "@hediet/semantic-json";
-import { makeLazyLoadable } from "../../utils/LazyLoadable";
+import { Deferred } from "@hediet/std/synchronization";
 import {
+	createLazyReactVisualization,
 	createVisualizer,
 	globalVisualizationFactory,
-	createReactVisualization,
-	createLazyReactVisualization,
 } from "@hediet/visualization-core";
+import * as React from "react";
 import { visualizationNs } from "../../consts";
+import { makeLazyLoadable } from "../../utils/LazyLoadable";
 
 const PlotlyViewerLazyLoadable = makeLazyLoadable(
 	async () => (await import("./PlotlyViewer")).PlotlyViewer
@@ -45,16 +44,22 @@ export const plotlyVisualizer = createVisualizer({
 					x: sOptionalProp(sDatumArr),
 					y: sOptionalProp(sDatumArr),
 					z: sOptionalProp(sDatumArr),
-					cells: sOptionalProp(sOpenObject({
-						values: sArrayOf(sDatumArr),
-					})),
-					header: sOptionalProp(sOpenObject({
-						values: sDatumArr,
-					})),
-					domain: sOptionalProp(sOpenObject({
-						x: sArrayOf(sNumber()),
-						y: sArrayOf(sNumber()),
-					})),
+					cells: sOptionalProp(
+						sOpenObject({
+							values: sArrayOf(sDatumArr),
+						})
+					),
+					header: sOptionalProp(
+						sOpenObject({
+							values: sDatumArr,
+						})
+					),
+					domain: sOptionalProp(
+						sOpenObject({
+							x: sArrayOf(sNumber()),
+							y: sArrayOf(sNumber()),
+						})
+					),
 					type: sOptionalProp(
 						sUnion([
 							sLiteral("bar"),
@@ -129,14 +134,20 @@ export const plotlyVisualizer = createVisualizer({
 				priority: 1000,
 				preload: PlotlyViewerLazyLoadable.preload,
 			},
-			({ theme, readyCallback }) => (
-				<PlotlyViewerLazyLoadable
-					data={data.data}
-					layout={data.layout}
-					theme={theme}
-					onReady={readyCallback}
-				/>
-			)
+			({ theme }) => {
+				const b = new Deferred();
+				return {
+					node: (
+						<PlotlyViewerLazyLoadable
+							data={data.data}
+							layout={data.layout}
+							theme={theme}
+							onReady={() => b.resolve}
+						/>
+					),
+					ready: b.promise,
+				};
+			}
 		),
 });
 

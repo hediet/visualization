@@ -16,13 +16,21 @@ export class VisualizationFactory {
 
 	private _getSerializer(map: ObservableMap<string, Visualizer>) {
 		return sUnionMany(
-			[...map.values()].map(v => v.serializer.asSerializer()),
+			[...map.values()].map((v) => v.serializer.asSerializer()),
 			{ processingStrategy: "all" }
 		);
 	}
 
 	public addVisualizer(visualizer: Visualizer): void {
 		this.visualizers.set(visualizer.id.toString(), visualizer);
+	}
+
+	public getRegisteredVisualizers(): Visualizer[] {
+		return [...this.visualizers.values()];
+	}
+
+	public getRegisteredHiddenVisualizer(): Visualizer[] {
+		return [...this.hiddenVisualizers.values()];
 	}
 
 	/**
@@ -38,11 +46,11 @@ export class VisualizationFactory {
 		preferredVisualization: VisualizationId | undefined
 	): Visualizations {
 		const u = this.getSerializer();
-		const result = u.deserialize((data as unknown) as JSONValue);
+		const result = u.deserialize(data as unknown as JSONValue);
 		const allVisualizations = result.value || [];
 
 		const u2 = this._getSerializer(this.hiddenVisualizers);
-		const hiddenResult = u2.deserialize((data as unknown) as JSONValue);
+		const hiddenResult = u2.deserialize(data as unknown as JSONValue);
 		allVisualizations.push(...(hiddenResult.value || []));
 
 		allVisualizations.sort((a, b) => b.priority - a.priority);
@@ -53,7 +61,7 @@ export class VisualizationFactory {
 		}
 		if (preferredVisualization) {
 			const preferred = allVisualizations.find(
-				vis => vis.id === preferredVisualization
+				(vis) => vis.id === preferredVisualization
 			);
 			if (preferred) {
 				bestVisualization = preferred;
