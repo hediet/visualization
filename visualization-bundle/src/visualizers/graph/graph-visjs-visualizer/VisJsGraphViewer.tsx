@@ -1,7 +1,7 @@
-import { Network, Options, DataSet } from "vis-network/standalone";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { NodeGraphData, EdgeGraphData } from "../sGraph";
+import { DataSet, Network, Options } from "vis-network/standalone";
+import { EdgeGraphData, NodeGraphData } from "../sGraph";
 
 @observer
 export class VisJsGraphViewer extends React.Component<{
@@ -12,7 +12,7 @@ export class VisJsGraphViewer extends React.Component<{
 	private readonly nodes = new DataSet<{
 		id: string;
 		label?: string;
-		color?: string;
+		color?: { border: string; background: string } | string;
 		shape?: string;
 	}>();
 	private readonly edges = new DataSet<{
@@ -42,7 +42,7 @@ export class VisJsGraphViewer extends React.Component<{
 			this.nodes.update({
 				id: n.id,
 				label: n.label !== undefined ? n.label : n.id,
-				color: n.color,
+				color: { background: n.color, border: n.borderColor },
 				shape: n.shape,
 			});
 		}

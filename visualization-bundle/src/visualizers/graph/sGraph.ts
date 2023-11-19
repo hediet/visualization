@@ -1,11 +1,10 @@
 import {
-	sOpenObject,
-	sLiteral,
 	sArrayOf,
-	sString,
+	sLiteral,
+	sOpenObject,
 	sOptionalProp,
+	sString,
 	sUnion,
-	sBoolean,
 } from "@hediet/semantic-json";
 import { visualizationNs } from "../../consts";
 
@@ -16,6 +15,7 @@ export const sGraphNode = sOpenObject({
 	id: sString(),
 	label: sOptionalProp(sString(), {}),
 	color: sOptionalProp(sString(), {}),
+	borderColor: sOptionalProp(sString(), {}),
 	shape: sOptionalProp(sUnion([sLiteral("ellipse"), sLiteral("box")]), {}),
 }).defineAs(visualizationNs("GraphNode"));
 
