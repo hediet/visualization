@@ -42,7 +42,7 @@
 		"viz.js": "^2.1.2"
 	},
 	"peerDependencies": {
-		"@hediet/visualization-core": "^0.1.1"
+		"@hediet/visualization-core": "0.*"
 	},
 	"devDependencies": {
 		"@types/classnames": "^2.2.9",
