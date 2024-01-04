@@ -74,7 +74,13 @@ export class SvgViewer extends React.Component<{
 					}
 				}}
 			>
-				{({ measureRef, contentRect }) => (
+				{({
+					measureRef,
+					contentRect,
+				}: {
+					measureRef: any;
+					contentRect: any;
+				}) => (
 					<div
 						ref={measureRef}
 						className="svgViewer"
@@ -85,7 +91,7 @@ export class SvgViewer extends React.Component<{
 							height={heightOrDefault(contentRect)}
 							tool={tool}
 							value={val as any}
-							onChangeValue={v => (this.value = v)}
+							onChangeValue={(v: any) => (this.value = v)}
 							onChangeTool={this.setTool}
 							ref={this.svgPanZoomRef}
 							toolbarProps={{

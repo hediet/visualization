@@ -37,7 +37,13 @@ export class AstTree extends React.Component<{
 		}
 		return (
 			<Measure client>
-				{({ measureRef, contentRect }) => {
+				{({
+					measureRef,
+					contentRect,
+				}: {
+					measureRef: any;
+					contentRect: any;
+				}) => {
 					return (
 						<div
 							ref={measureRef}

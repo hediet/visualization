@@ -174,7 +174,7 @@ class VisualizationConfigView extends React.Component<{
 		if (visualizations.bestVisualization) {
 			const tsTypeGenerator = new TypeScriptTypeGenerator();
 			const typeSrc = tsTypeGenerator.getType(
-				visualizations.bestVisualization.sourceVisualizer.serializer.asSerializer()
+				visualizations.bestVisualizationVisualizer!.serializer.asSerializer()
 			);
 			const decl = tsTypeGenerator.getDefinitionSource();
 			return {

@@ -64,7 +64,7 @@ export function createReactVisualization(
 	args: ReactVisualizationArgs,
 	renderReactNode: (args: ReactVisualizationRenderArgs) => React.ReactChild
 ) {
-	return new ReactVisualization(sourceVisualizer, args, (options) => {
+	return new ReactVisualization(sourceVisualizer, args, options => {
 		const deferred = new Deferred();
 		return {
 			node: (
@@ -86,7 +86,7 @@ class ComponentWithOnMount extends React.Component<{
 		this.props.onDidMount();
 	}
 
-	render() {
+	render(): React.ReactNode {
 		return this.props.child;
 	}
 }
@@ -94,7 +94,9 @@ class ComponentWithOnMount extends React.Component<{
 export function createLazyReactVisualization(
 	sourceVisualizer: Visualizer,
 	args: ReactVisualizationArgs,
-	renderReactNode: (args: ReactVisualizationRenderArgs) => {
+	renderReactNode: (
+		args: ReactVisualizationRenderArgs
+	) => {
 		node: React.ReactChild;
 		ready: Promise<void>;
 	}

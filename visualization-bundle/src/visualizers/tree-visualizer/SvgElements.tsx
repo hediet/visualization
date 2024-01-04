@@ -4,7 +4,10 @@ import { Properties } from "csstype";
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export function omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+export function omit<T extends {}, K extends keyof T>(
+	obj: T,
+	keys: K[]
+): Omit<T, K> {
 	const newObj: Omit<T, K> = {} as any;
 	for (const [key, val] of Object.entries(obj)) {
 		if (!keys.includes(key as K)) {

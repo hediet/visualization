@@ -1,6 +1,6 @@
 import { Visualizer, Visualization, VisualizationId } from "./Visualizer";
 import { VisualizationData } from "./VisualizationData";
-import { JSONValue, sUnionMany } from "@hediet/semantic-json";
+import { JSONValue, Serializer, sUnionMany } from "@hediet/semantic-json";
 import { ObservableMap } from "mobx";
 
 export class VisualizationFactory {
@@ -10,13 +10,17 @@ export class VisualizationFactory {
 		Visualizer
 	>();
 
-	public getSerializer() {
+	public getSerializer(): Serializer<[Visualization<any>, Visualizer][]> {
 		return this._getSerializer(this.visualizers);
 	}
 
-	private _getSerializer(map: ObservableMap<string, Visualizer>) {
+	private _getSerializer(map: ObservableMap<string, Visualizer>): Serializer<[Visualization<any>, Visualizer][]> {
 		return sUnionMany(
-			[...map.values()].map((v) => v.serializer.asSerializer()),
+			[...map.values()].map((v) => v.serializer.asSerializer().refine<[Visualization, Visualizer]>({
+				canSerialize: (v): v is [Visualization, Visualizer] => false,
+				fromIntermediate: value => [value, v],
+				toIntermediate: () => { throw new Error("not supported"); }
+			})),
 			{ processingStrategy: "all" }
 		);
 	}
@@ -53,15 +57,15 @@ export class VisualizationFactory {
 		const hiddenResult = u2.deserialize(data as unknown as JSONValue);
 		allVisualizations.push(...(hiddenResult.value || []));
 
-		allVisualizations.sort((a, b) => b.priority - a.priority);
+		allVisualizations.sort(([a], [b]) => b.priority - a.priority);
 
-		let bestVisualization: Visualization | undefined = allVisualizations[0];
-		if (bestVisualization && bestVisualization.priority < 0) {
+		let bestVisualization: [Visualization, Visualizer] | undefined = allVisualizations[0];
+		if (bestVisualization && bestVisualization[0].priority < 0) {
 			bestVisualization = undefined;
 		}
 		if (preferredVisualization) {
 			const preferred = allVisualizations.find(
-				(vis) => vis.id === preferredVisualization
+				([vis]) => vis.id === preferredVisualization
 			);
 			if (preferred) {
 				bestVisualization = preferred;
@@ -69,8 +73,9 @@ export class VisualizationFactory {
 		}
 
 		return {
-			bestVisualization,
-			allVisualizations,
+			bestVisualization: bestVisualization ? bestVisualization[0] : undefined,
+			bestVisualizationVisualizer: bestVisualization ? bestVisualization[1] : undefined,
+			allVisualizations: allVisualizations.map(v => v[0]),
 			visualizationDataErrors: [],
 		};
 	}
@@ -78,6 +83,7 @@ export class VisualizationFactory {
 
 export interface Visualizations {
 	bestVisualization: Visualization | undefined;
+	bestVisualizationVisualizer: Visualizer | undefined;
 	allVisualizations: Visualization[];
 	visualizationDataErrors: VisualizationDataError[];
 }
